@@ -1,0 +1,59 @@
+{% extends '::frontend.html.twig' %}
+
+{% block content_right %}
+  {#% include 'PortalBundle:News:right.html.twig' %#}
+{% endblock %}
+
+{% block content %}
+{% spaceless %}
+
+<pre>
+------------------------
+Creacion de una campana
+------------------------
+Aca ya pasan a la creación de una campana. Tendríamos que poder identificar a 
+los usuarios que crearon alguna campana, los que tienen campanas activas y los
+ usuarios que nunca hicieron nada con el sistema de ad.
+Asi podemos mostrarle alguna informacion extra cuando tienen campanas. 
+Por ej. en el menu de configuración.
+
+Los datos que se van a manejar para crear campanas:
+
+Tipo de anuncio:
+- Costo por impresión
+- Espacio fijo
+
+--------------
+Para costo por impresión:
+---
+
++ País en el que se muestran los anuncios.
+
++ Secciones en la que quiere aparecer: (checkbox, se pueden elegir todos o algunos)
+Noticias
+Comunidad
+Mercado
+Organizaciones
+Actividades
+
+
+Elegir el tamaño del alto del banner:
+150 px
+250 px
+350 px
+
+Subir banner
+
+Presupuesto máximo por día (input ) 
+
+Los anuncios pasan por revisión antes de publicarse. Así que vamos a tener que hacer 
+un panel en el admin para validar los anuncios.
+
+
+--------------
+Para costo fijo:
+---
+</pre>
+
+{% endspaceless %}
+{% endblock %}

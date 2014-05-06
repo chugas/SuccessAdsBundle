@@ -1,0 +1,19 @@
+portal_ads_index:
+  pattern: /ads/
+  defaults: { _controller: AdsBundle:Ads:index }
+
+portal_ads_show:
+  pattern: /ads/{id}/show/
+  defaults: { _controller: AdsBundle:Ads:show }
+
+portal_ads_create:
+  pattern: /ads/create/
+  defaults: { _controller: AdsBundle:Ads:create }
+
+portal_ads_edit:
+  pattern: /ads/{id}/edit/
+  defaults: { _controller: AdsBundle:Ads:edit }
+
+portal_ads_delete:
+    pattern: /ads/{id}/delete/
+    defaults: { _controller: AdsBundle:Ads:delete }

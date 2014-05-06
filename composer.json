@@ -1,0 +1,22 @@
+{
+  "name": "success/ads-bundle",
+  "type": "symfony-bundle",
+  "description": "Symfony2 bundle for ads management",
+  "keywords": ["Success", "Symfony Bundle", "Banners", "Advertising"],
+  "homepage": "https://github.com/chugas",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Gaston Caldeiro",
+      "email": "successlabsuy@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.2",
+    "symfony/framework-bundle": ">=2.1"
+  },
+  "autoload": {
+    "psr-0": { "Success\\AdsBundle": "" }
+  },
+  "target-dir": "Success/AdsBundle"
+}
