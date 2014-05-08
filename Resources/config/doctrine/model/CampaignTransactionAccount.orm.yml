@@ -1,0 +1,31 @@
+Success\AdsBundle\Entity\CampaignTransactionAccount:
+    type: mappedSuperclass
+    fields:
+        concept:
+            type: string
+            length: 256
+            nullable: false
+        debit:
+            type: decimal
+            scale: 2
+            nullable: true
+        credit:
+            type: decimal
+            scale: 2
+            nullable: true
+        createdDate:
+            type: datetime
+            column: created_date
+            nullable: false
+        total:
+            type: decimal
+            scale: 2
+    manyToOne:
+        account:
+            targetEntity: Success\AdsBundle\Model\CampaignAccountInterface
+            cascade: []
+            nullable: false
+            joinColumn:
+                name: campaign_account_id
+                referencedColumnName: id
+                onDelete: SET NULL

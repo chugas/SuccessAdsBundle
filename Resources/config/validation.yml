@@ -1,0 +1,7 @@
+#%ccdn_forum_forum.entity.post.class%:
+Success\AdsBundle\Entity\Campaign:
+    properties:
+        name:
+            - Type: { type: string, groups: [success_create] }
+            - NotBlank: { groups: [success_create] }
+            - Length: { min: 5, max: 70, groups: [success_create] }

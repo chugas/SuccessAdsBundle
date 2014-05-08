@@ -1,0 +1,23 @@
+parameters:
+
+    # Service Parameters defined in app/config.
+
+services:
+
+    success.entity_manager.campaign:
+        alias: doctrine.orm.entity_manager
+
+    success.repository.campaign.metadata:
+        factory_method: getClassMetadata
+        factory_service: success.manager.campaign
+        class: Doctrine\ORM\Mapping\ClassMetadata
+        arguments:
+            - %success.model.campaign.class%
+            
+    success.repository.campaign:
+        class: %success.repository.campaign.class%
+        arguments:
+            - '@success.entity_manager.campaign'
+            - '@success.repository.campaign.metadata'
+        tags:
+            - { name: form.type, alias: success_campaign }

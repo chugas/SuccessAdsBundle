@@ -1,0 +1,38 @@
+campaign:
+    form:
+        name: "Nombre"
+        code: "Codigo"
+        pricePerDay: "Presupuesto por dia"
+        active: "Activo"
+        unlockedDate: "Desde"
+        unlockedUntilDate: "Hasta"
+        createdBy: "Usuario"
+        
+campaignBanner:
+    form:
+        file: "Banner"
+        link: "Link"
+        targetBlank: "Nueva Ventana"
+        html: "HTML"
+
+campaignAccount:
+    form:
+        code: "Codigo"
+        currency: "Moneda"
+        total: "Saldo"
+        user: "Usuario"
+
+campaignTransactionAccount:
+    form:
+        concept: "Concepto"
+        debit: "Debito"
+        credit: "Credito"
+        total: "Saldo"
+        account: "Cuenta"
+
+campaignLog:
+    form:
+        campaign: "Campaña"
+        views: "Impresiones"
+        credit: "Clicks"
+        active: "Activo"

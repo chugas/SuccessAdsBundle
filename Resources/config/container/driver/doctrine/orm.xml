@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+                               http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+        <service id="success.entity_manager.campaign" alias="doctrine.orm.entity_manager" />
+        <service id="success.repository.campaign" class="%success.repository.evento.class%">
+            <argument type="service" id="success.entity_manager.campaign" />
+            <argument type="service">
+                <service
+                    factory-service="success.manager.campaign"
+                    factory-method="getClassMetadata"
+                    class="Doctrine\ORM\Mapping\ClassMetadata"
+                >
+                    <argument>%success.model.campaign.class%</argument>
+                </service>
+            </argument>
+        </service>
+    </services>
+
+</container>

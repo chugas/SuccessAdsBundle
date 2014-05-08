@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class AdsController extends Controller {
+class CampaignLogController extends Controller {
 
   public function indexAction() {
     $respuesta = $this->render('AdsBundle:Ads:index.html.twig', array());

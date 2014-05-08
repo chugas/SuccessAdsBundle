@@ -7,6 +7,7 @@ use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Success\AdsBundle\SuccessAdsBundle;
 
 /**
@@ -14,26 +15,23 @@ use Success\AdsBundle\SuccessAdsBundle;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class CoreExtension extends Extension {
+class SuccessAdsExtension extends Extension {
 
   public function load(array $configs, ContainerBuilder $container) {
     $configuration = new Configuration();
     $config = $this->processConfiguration($configuration, $configs);
 
-    //$loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-    //$loader->load('services.yml');
+    $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
+    $loader->load('admin.yml');
 
-    $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-    $loader->load('services.xml');
-    $loader->load('admin.xml');
-    $loader->load('twig.xml');
+    //$loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
     
     $driver = $config['driver'];
     
     $this->loadDriver($driver, $config, $loader);
 
-    $container->setParameter('core.driver', $driver);
-    $container->setParameter('core.driver.' . $driver, true);
+    $container->setParameter('success_ads.driver', $driver);
+    $container->setParameter('success_ads.driver.' . $driver, true);
 
     $classes = $config['classes'];
 
@@ -49,15 +47,15 @@ class CoreExtension extends Extension {
    *
    * @throws \InvalidArgumentException
    */
-  protected function loadDriver($driver, array $config, XmlFileLoader $loader) {
+  protected function loadDriver($driver, array $config, YamlFileLoader $loader) {
     if (!in_array($driver, SuccessAdsBundle::getSupportedDrivers())) {
-      throw new \InvalidArgumentException(sprintf('Driver "%s" is unsupported by CoreBundle.', $driver));
+      throw new \InvalidArgumentException(sprintf('Driver "%s" is unsupported by AdsBundle.', $driver));
     }
 
     $classes = $config['classes'];
-    $loader->load(sprintf('container/driver/%s.xml', $driver));
+    $loader->load(sprintf('container/driver/%s.yml', $driver));
 
-    $loader->load('container/campaign.xml');
+    $loader->load('container/campaign.yml');
   }
 
   /**

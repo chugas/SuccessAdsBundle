@@ -4,62 +4,60 @@ namespace Success\AdsBundle\Model;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class Campaign {
+class Campaign implements CampaignInterface {
+
+  protected $code;
 
   /** @var Name $name */
-  protected $name = null;
-  
+  protected $name;
+
   /** @var Float $pricePerDay */
   protected $pricePerDay;
 
   /** @var Boolean $active */
   protected $active;
+  
+  protected $campaignType;
 
-  /**
-   *
-   * @var \DateTime $createdDate
-   */
+  /** @var \DateTime $createdDate */
   protected $createdDate;
 
-  /**
-   *
-   * @var Boolean $isDeleted
-   */
+  /** @var Boolean $isDeleted */
   protected $isDeleted = false;
 
-  /**
-   *
-   * @var \DateTime $deletedDate
-   */
+  /** @var \DateTime $deletedDate */
   protected $deletedDate;
 
-  /**
-   *
-   * @var \DateTime $unlockedDate
-   */
+  /** @var \DateTime $unlockedDate */
   protected $unlockedDate;
 
-  /**
-   *
-   * @var \DateTime $unlockedUntilDate
-   */
+  /** @var \DateTime $unlockedUntilDate */
   protected $unlockedUntilDate;
 
   /** @var UserInterface $createdBy */
   protected $createdBy;
 
-  /** @var Attachment $attachment */
-  protected $attachment = null;
+  /** @var Attachment $banner */
+  protected $banner = null;
 
-  /**
-   *
-   * @access public
-   */
   public function __construct() {
-    // your own logic
-
+    $this->createdDate = new \Datetime('now');
     $this->unlockedDate = new \Datetime('now');
     $this->unlockedUntilDate = new \Datetime('now + 7 days');
+  }
+
+  public function __toString() {
+    return (string) $this->name;
+  }
+
+  public function getCode(){
+    return $this->code;
+  }
+  
+  public function setCode($code){
+    $this->code = $code;
+    
+    return $this;
   }
   
   public function getPricePerDay() {
@@ -71,7 +69,17 @@ class Campaign {
 
     return $this;
   }
-  
+
+  public function getCampaignType() {
+    return $this->campaignType;
+  }
+
+  public function setCampaignType($campaignType) {
+    $this->campaignType = $campaignType;
+
+    return $this;
+  }
+
   public function getActive() {
     return $this->active;
   }
@@ -80,12 +88,12 @@ class Campaign {
     $this->active = $active;
 
     return $this;
-  }  
+  }
 
   /**
    * Get createdDate
    *
-   * @return \datetime
+   * @return \Datetime
    */
   public function getCreatedDate() {
     return $this->createdDate;
@@ -94,8 +102,8 @@ class Campaign {
   /**
    * Set createdDate
    *
-   * @param  \datetime $createdDate
-   * @return Post
+   * @param  \Datetime $createdDate
+   * @return Campaign
    */
   public function setCreatedDate($createdDate) {
     $this->createdDate = $createdDate;
@@ -116,10 +124,11 @@ class Campaign {
    * Set is_deleted
    *
    * @param  boolean $isDeleted
-   * @return Post
+   * @return Campaign
    */
   public function setDeleted($isDeleted) {
     $this->isDeleted = $isDeleted;
+    $this->deletedDate = new \Datetime('now');
 
     return $this;
   }
@@ -137,7 +146,7 @@ class Campaign {
    * Set deletedDate
    *
    * @param  \datetime $deletedDate
-   * @return Post
+   * @return Campaign
    */
   public function setDeletedDate($deletedDate) {
     $this->deletedDate = $deletedDate;
@@ -158,7 +167,7 @@ class Campaign {
    * Set unlockedDate
    *
    * @param  \datetime $datetime
-   * @return Post
+   * @return Campaign
    */
   public function setUnlockedDate(\Datetime $datetime) {
     $this->unlockedDate = $datetime;
@@ -179,7 +188,7 @@ class Campaign {
    * Set unlockedUntilDate
    *
    * @param  \datetime $datetime
-   * @return Post
+   * @return Campaign
    */
   public function setUnlockedUntilDate(\Datetime $datetime) {
     $this->unlockedUntilDate = $datetime;
@@ -209,7 +218,7 @@ class Campaign {
    * Set name
    *
    * @param  Name $name
-   * @return Post
+   * @return Campaign
    */
   public function setName($name = null) {
     $this->name = $name;
@@ -230,11 +239,21 @@ class Campaign {
    * Set created_by
    *
    * @param  UserInterface $createdBy
-   * @return Post
+   * @return Campaign
    */
   public function setCreatedBy(UserInterface $createdBy = null) {
     $this->createdBy = $createdBy;
 
+    return $this;
+  }
+  
+  public function getBanner(){
+    return $this->banner;
+  }
+  
+  public function setBanner($banner){
+    $this->banner = $banner;
+    
     return $this;
   }
 

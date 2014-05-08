@@ -1,0 +1,15 @@
+parameters:
+
+    # Service Parameters defined in app/config.
+
+services:
+
+    #
+    # Campaign Forms.
+    #
+    success.form.type.campaign:
+        class: %success.form.type.campaign.class%
+        arguments:
+            - %success.model.campaign.class%
+        tags:
+            - { name: form.type, alias: success_campaign }

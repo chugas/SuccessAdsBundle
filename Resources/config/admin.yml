@@ -1,0 +1,49 @@
+parameters:
+
+services:
+    success_ads.admin.campaign:
+        class: %success.admin.campaign.class%
+        tags:
+          - { name: sonata.admin, manager_type: orm, show_in_dashboard: true, group: 'Ads', label: Campañas }
+        arguments:
+            - null
+            - %success.model.campaign.class%
+            - null
+
+    success_ads.admin.campaignBanner:
+        class: %success.admin.campaignBanner.class%
+        tags:
+          - { name: sonata.admin, manager_type: orm, show_in_dashboard: true, group: 'Ads', label: Banners }
+        arguments:
+            - null
+            - %success.model.campaignBanner.class%
+            - null
+            
+    success_ads.admin.campaignAccount:
+        class: %success.admin.campaignAccount.class%
+        tags:
+          - { name: sonata.admin, manager_type: orm, show_in_dashboard: true, group: 'Ads', label: Cuentas }
+        arguments:
+            - null
+            - %success.model.campaignAccount.class%
+            - null         
+        calls:
+            - [ addChild, [ "@success_ads.admin.campaignTransactionAccount" ] ]
+              
+    success_ads.admin.campaignTransactionAccount:
+        class: %success.admin.campaignTransactionAccount.class%
+        tags:
+          - { name: sonata.admin, manager_type: orm, show_in_dashboard: false, group: 'Ads', label: Movimientos }
+        arguments:
+            - null
+            - %success.model.campaignTransactionAccount.class%
+            - null
+
+    success_ads.admin.campaignLog:
+        class: %success.admin.campaignLog.class%
+        tags:
+          - { name: sonata.admin, manager_type: orm, show_in_dashboard: true, group: 'Ads', label: Logs }
+        arguments:
+            - null
+            - %success.model.campaignLog.class%
+            - null

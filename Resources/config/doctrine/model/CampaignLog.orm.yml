@@ -1,0 +1,32 @@
+Success\AdsBundle\Entity\CampaignLog:
+    type: mappedSuperclass
+    fields:
+        views:
+            type: integer
+        clicks:
+            type: integer
+        createdDate:
+            type: datetime
+            column: created_date
+            nullable: false
+        active:
+            type: boolean
+            nullable: false
+    manyToOne:
+        createdBy:
+            targetEntity: Symfony\Component\Security\Core\User\UserInterface
+            cascade: []
+            nullable: false
+            joinColumn:
+                name: success_user_id
+                referencedColumnName: id
+                onDelete: SET NULL
+    manyToOne:
+        campaign:
+            targetEntity: Success\AdsBundle\Model\CampaignInterface
+            cascade: []
+            nullable: false
+            joinColumn:
+                name: campaign_id
+                referencedColumnName: id
+                onDelete: SET NULL

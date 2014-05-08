@@ -3,9 +3,11 @@
 namespace Success\AdsBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Doctrine\Bundle\DoctrineBundle\DependencyInjection\Compiler\DoctrineOrmMappingsPass;
 
-class SuccessAdsBundle extends Bundle
-{
+class SuccessAdsBundle extends Bundle {
+
   const DRIVER_DOCTRINE_ORM = 'doctrine/orm';
   const DRIVER_DOCTRINE_MONGODB_ODM = 'doctrine/mongodb-odm';
 
@@ -14,12 +16,13 @@ class SuccessAdsBundle extends Bundle
         self::DRIVER_DOCTRINE_ORM
     );
   }
-  
-  /*public function build(ContainerBuilder $container){
+
+  public function build(ContainerBuilder $container) {
     $mappings = array(
-        realpath(__DIR__ . '/Resources/config/doctrine/model') => 'Application\Success\CoreBundle\Model',
+        realpath(__DIR__ . '/Resources/config/doctrine/model') => 'Success\AdsBundle\Entity'
     );
 
-    $container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver($mappings, array('doctrine.orm.entity_manager'), 'core.driver.doctrine/orm'));    
-  }*/  
+    $container->addCompilerPass(DoctrineOrmMappingsPass::createYamlMappingDriver($mappings, array('doctrine.orm.entity_manager'), 'success_ads.driver.doctrine/orm'));
+  }
+
 }
