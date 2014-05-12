@@ -43,7 +43,7 @@ class CampaignBanner implements CampaignBannerInterface {
     // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
     return self::UPLOAD_DIR;
   }
-
+  
   public function preUpload() {
     if (null !== $this->file) {
       // do whatever you want to generate a unique name

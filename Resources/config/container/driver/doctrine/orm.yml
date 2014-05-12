@@ -9,7 +9,7 @@ services:
 
     success.repository.campaign.metadata:
         factory_method: getClassMetadata
-        factory_service: success.manager.campaign
+        factory_service: success.entity_manager.campaign
         class: Doctrine\ORM\Mapping\ClassMetadata
         arguments:
             - %success.model.campaign.class%
@@ -19,5 +19,3 @@ services:
         arguments:
             - '@success.entity_manager.campaign'
             - '@success.repository.campaign.metadata'
-        tags:
-            - { name: form.type, alias: success_campaign }

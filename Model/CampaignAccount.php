@@ -13,8 +13,8 @@ class CampaignAccount implements CampaignAccountInterface {
   protected $deletedDate;
   
   public function __construct() {
-    $this->code = strtoupper(substr(sha1(uniqid(mt_rand(), true)), 30, 10));
-    $this->createdDate = new \Datetime('now');
+    $this->createdDate = new \Datetime('now');    
+    $this->code = 'AGAC' . $this->createdDate->format('Ym') . strtoupper(substr(sha1(uniqid(mt_rand(), true)), 30, 10));
   }
   
   public function __toString() {

@@ -5,6 +5,7 @@ namespace Success\AdsBundle\Admin;
 use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
 
 class CampaignTransactionAccountAdmin extends Admin
 {
@@ -28,14 +29,18 @@ class CampaignTransactionAccountAdmin extends Admin
     public function configureListFields(ListMapper $listMapper)
     {
         $listMapper
-            ->addIdentifier('id')
+            ->addIdentifier('createdDate')
             ->add('concept')
             ->add('debit')
             ->add('credit')
             ->add('total')
         ;
     }
-    
+
+    public function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+    }
+
     public function prePersist($object){
       $campaignAccount = $object->getAccount();
       

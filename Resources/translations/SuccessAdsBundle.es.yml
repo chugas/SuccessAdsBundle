@@ -7,7 +7,11 @@ campaign:
         unlockedDate: "Desde"
         unlockedUntilDate: "Hasta"
         createdBy: "Usuario"
-        
+        campaignType:
+            label: "Tipo"
+            fixed: "Espacio Fijo"
+            views: "Espacio por Impresion"
+
 campaignBanner:
     form:
         file: "Banner"

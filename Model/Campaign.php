@@ -5,7 +5,10 @@ namespace Success\AdsBundle\Model;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class Campaign implements CampaignInterface {
-
+  
+  const TYPE_FIXED = 'fixed';
+  const TYPE_VIEWS = 'views';
+    
   protected $code;
 
   /** @var Name $name */
@@ -37,13 +40,14 @@ class Campaign implements CampaignInterface {
   /** @var UserInterface $createdBy */
   protected $createdBy;
 
-  /** @var Attachment $banner */
+  /** @var CampaignBanner $banner */
   protected $banner = null;
 
   public function __construct() {
     $this->createdDate = new \Datetime('now');
     $this->unlockedDate = new \Datetime('now');
     $this->unlockedUntilDate = new \Datetime('now + 7 days');
+    $this->code = 'AGCM' . $this->createdDate->format('Ym') . strtoupper(substr(sha1(uniqid(mt_rand(), true)), 30, 10));
   }
 
   public function __toString() {
@@ -69,12 +73,19 @@ class Campaign implements CampaignInterface {
 
     return $this;
   }
-
+  
+  public function getCampaignTypes() {
+    return array(self::TYPE_FIXED, self::TYPE_VIEWS);
+  }
+  
   public function getCampaignType() {
     return $this->campaignType;
   }
 
   public function setCampaignType($campaignType) {
+    if (!in_array($campaignType, array(self::TYPE_FIXED, self::TYPE_VIEWS))) {
+      throw new \InvalidArgumentException("Invalid status");
+    }
     $this->campaignType = $campaignType;
 
     return $this;

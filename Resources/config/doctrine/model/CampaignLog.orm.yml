@@ -11,12 +11,12 @@ Success\AdsBundle\Entity\CampaignLog:
             nullable: false
         active:
             type: boolean
-            nullable: false
+            nullable: true
     manyToOne:
         createdBy:
             targetEntity: Symfony\Component\Security\Core\User\UserInterface
             cascade: []
-            nullable: false
+            nullable: true
             joinColumn:
                 name: success_user_id
                 referencedColumnName: id
@@ -29,4 +29,4 @@ Success\AdsBundle\Entity\CampaignLog:
             joinColumn:
                 name: campaign_id
                 referencedColumnName: id
-                onDelete: SET NULL
+                onDelete: CASCADE

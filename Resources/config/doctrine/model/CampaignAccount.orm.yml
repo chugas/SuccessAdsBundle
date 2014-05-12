@@ -3,7 +3,7 @@ Success\AdsBundle\Entity\CampaignAccount:
     fields:
         code:
             type: string
-            length: 10
+            columnDefinition: CHAR(20) NOT NULL
         currency:
             type: string
             length: 3
@@ -27,7 +27,7 @@ Success\AdsBundle\Entity\CampaignAccount:
         user:
             targetEntity: Symfony\Component\Security\Core\User\UserInterface
             cascade: []
-            nullable: false
+            nullable: true
             joinColumn:
                 name: success_user_id
                 referencedColumnName: id

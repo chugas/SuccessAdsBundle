@@ -28,4 +28,4 @@ Success\AdsBundle\Entity\CampaignTransactionAccount:
             joinColumn:
                 name: campaign_account_id
                 referencedColumnName: id
-                onDelete: SET NULL
+                onDelete: CASCADE

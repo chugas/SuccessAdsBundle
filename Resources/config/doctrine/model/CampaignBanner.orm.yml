@@ -16,3 +16,9 @@ Success\AdsBundle\Entity\CampaignBanner:
         html:
             type: text
             nullable: true
+    lifecycleCallbacks:
+        prePersist: [preUpload]
+        preUpdate: [preUpload]
+        postPersist: [upload]
+        postUpdate: [upload]
+        postRemove: [removeUpload]

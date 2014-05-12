@@ -6,6 +6,7 @@ use Sonata\AdminBundle\Admin\Admin;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
+use Success\AdsBundle\Model\Campaign;
 
 class CampaignAdmin extends Admin
 {
@@ -18,15 +19,21 @@ class CampaignAdmin extends Admin
 
     public function configureFormFields(FormMapper $formMapper)
     {
-        $formMapper
-          ->add('name', 'text', array('label' => 'campaign.form.name'))
-          ->add('pricePerDay', 'text', array('label' => 'campaign.form.pricePerDay'))
-          ->add('unlockedDate', 'date', array('label' => 'campaign.form.unlockedDate'))
-          ->add('unlockedUntilDate', 'date', array('label' => 'campaign.form.unlockedUntilDate'))
-          ->add('createdBy', 'sonata_type_model_list', array('btn_add' => false, 'label' => 'campaign.form.createdBy'))
-          ->add('active', 'checkbox', array('label' => 'campaign.form.active'))
-          //->add('banner')
-        ;
+      $choices = array(
+        Campaign::TYPE_FIXED => $this->trans('campaign.form.campaignType.' . Campaign::TYPE_FIXED),
+        Campaign::TYPE_VIEWS => $this->trans('campaign.form.campaignType.' . Campaign::TYPE_VIEWS),
+      );
+      
+      $formMapper
+        ->add('name', 'text', array('label' => 'campaign.form.name'))
+        ->add('pricePerDay', 'text', array('label' => 'campaign.form.pricePerDay'))
+        ->add('campaignType', 'choice', array('choices' => $choices, 'label' => 'campaign.form.campaignType.label'))                
+        ->add('unlockedDate', 'date', array('label' => 'campaign.form.unlockedDate'))
+        ->add('unlockedUntilDate', 'date', array('label' => 'campaign.form.unlockedUntilDate'))
+        ->add('createdBy', 'sonata_type_model_list', array('btn_add' => false, 'label' => 'campaign.form.createdBy'))
+        ->add('active', 'checkbox', array('label' => 'campaign.form.active'))
+        ->add('banner', 'sonata_type_model_list', array('btn_list' => false))
+      ;
     }
 
     public function configureListFields(ListMapper $listMapper)
