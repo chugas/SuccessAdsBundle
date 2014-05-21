@@ -11,6 +11,7 @@ Success\AdsBundle\Entity\CampaignBanner:
             nullable: true
         targetBlank:
             type: boolean
+            nullable: false
             options:
                 default: 1
         html:

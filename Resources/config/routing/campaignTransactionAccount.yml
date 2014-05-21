@@ -1,0 +1,3 @@
+campaignTransaction_index:
+    pattern: /account/
+    defaults: { _controller: SuccessAdsBundle:CampaignAccount:index }

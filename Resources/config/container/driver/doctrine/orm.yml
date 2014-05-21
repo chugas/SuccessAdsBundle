@@ -19,3 +19,102 @@ services:
         arguments:
             - '@success.entity_manager.campaign'
             - '@success.repository.campaign.metadata'
+
+    success.manager.campaign:
+        class: %success.manager.campaign.class%
+        arguments:
+            - '@success.entity_manager.campaign'
+            - %success.model.campaign.class%
+            
+    # campaignBanner
+    success.entity_manager.campaignBanner:
+        alias: doctrine.orm.entity_manager
+
+    success.repository.campaignBanner.metadata:
+        factory_method: getClassMetadata
+        factory_service: success.entity_manager.campaignBanner
+        class: Doctrine\ORM\Mapping\ClassMetadata
+        arguments:
+            - %success.model.campaignBanner.class%
+            
+    success.repository.campaignBanner:
+        class: %success.repository.campaignBanner.class%
+        arguments:
+            - '@success.entity_manager.campaignBanner'
+            - '@success.repository.campaignBanner.metadata'
+
+    success.manager.campaignBanner:
+        class: %success.manager.campaignBanner.class%
+        arguments:
+            - '@success.entity_manager.campaignBanner'
+            - %success.model.campaignBanner.class%
+            
+    # campaignLog
+    success.entity_manager.campaignLog:
+        alias: doctrine.orm.entity_manager
+
+    success.repository.campaignLog.metadata:
+        factory_method: getClassMetadata
+        factory_service: success.entity_manager.campaignLog
+        class: Doctrine\ORM\Mapping\ClassMetadata
+        arguments:
+            - %success.model.campaignLog.class%
+            
+    success.repository.campaignLog:
+        class: %success.repository.campaignLog.class%
+        arguments:
+            - '@success.entity_manager.campaignLog'
+            - '@success.repository.campaignLog.metadata'
+
+    success.manager.campaignLog:
+        class: %success.manager.campaignLog.class%
+        arguments:
+            - '@success.entity_manager.campaignLog'
+            - %success.model.campaignLog.class% 
+            
+            
+    # campaignAccount
+    success.entity_manager.campaignAccount:
+        alias: doctrine.orm.entity_manager
+
+    success.repository.campaignAccount.metadata:
+        factory_method: getClassMetadata
+        factory_service: success.entity_manager.campaignAccount
+        class: Doctrine\ORM\Mapping\ClassMetadata
+        arguments:
+            - %success.model.campaignAccount.class%
+            
+    success.repository.campaignAccount:
+        class: %success.repository.campaignAccount.class%
+        arguments:
+            - '@success.entity_manager.campaignAccount'
+            - '@success.repository.campaignAccount.metadata'
+
+    success.manager.campaignAccount:
+        class: %success.manager.campaignAccount.class%
+        arguments:
+            - '@success.entity_manager.campaignAccount'
+            - %success.model.campaignAccount.class% 
+
+    # campaignTransactionAccount
+    success.entity_manager.campaignTransactionAccount:
+        alias: doctrine.orm.entity_manager
+
+    success.repository.campaignTransactionAccount.metadata:
+        factory_method: getClassMetadata
+        factory_service: success.entity_manager.campaignTransactionAccount
+        class: Doctrine\ORM\Mapping\ClassMetadata
+        arguments:
+            - %success.model.campaignTransactionAccount.class%
+            
+    success.repository.campaignTransactionAccount:
+        class: %success.repository.campaignTransactionAccount.class%
+        arguments:
+            - '@success.entity_manager.campaignTransactionAccount'
+            - '@success.repository.campaignTransactionAccount.metadata'
+
+    success.manager.campaignTransactionAccount:
+        class: %success.manager.campaignTransactionAccount.class%
+        arguments:
+            - '@success.entity_manager.campaignTransactionAccount'
+            - %success.model.campaignTransactionAccount.class%

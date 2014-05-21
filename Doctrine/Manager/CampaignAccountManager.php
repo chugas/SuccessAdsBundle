@@ -2,7 +2,7 @@
 
 namespace Success\AdsBundle\Doctrine\Manager;
 
-class CampaignManager {
+class CampaignAccountManager {
 
   protected $objectManager;
   protected $class;
@@ -19,7 +19,7 @@ class CampaignManager {
   /**
    * Returns an empty user instance
    *
-   * @return Application\Success\AdsBundle\Model\Campaign
+   * @return Application\Success\AdsBundle\Model\CampaignAccountInterface
    */
   public function create() {
     $class = $this->getClass();
@@ -38,7 +38,7 @@ class CampaignManager {
   /**
    * Updates a campaign.
    *
-   * @param Application\Success\AdsBundle\Model\Campaign $campaign
+   * @param Application\Success\AdsBundle\Model\CampaignAccountInterface $campaign
    * @param Boolean       $andFlush Whether to flush the changes (default true)
    */
   public function update($campaign, $andFlush = true) {

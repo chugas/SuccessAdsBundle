@@ -9,6 +9,15 @@ class CampaignRepository extends EntityRepository {
   public function getQueryBuilder($alias = 'c'){
     return $this->createQueryBuilder($alias);
   }
+  
+  public function findCampaignByUserQuery($success_user_id){
+    $qb = $this->getQueryBuilder('c')
+            ->where('c.createdBy = :user_id');
+    
+    $qb->setParameter('user_id', $success_user_id);
+
+    return $qb;
+  }
 
   public function findCampaignBy(array $criteria) {
     return $this->findOneBy($criteria);
@@ -16,7 +25,7 @@ class CampaignRepository extends EntityRepository {
 
   public function findCampaigns() {
     return $this->findAll();
-  }  
+  }
   
   /*public function getFirstPostForTopicById($topicId) {
     if (null == $topicId || !is_numeric($topicId) || $topicId == 0) {

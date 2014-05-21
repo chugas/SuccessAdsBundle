@@ -4,27 +4,37 @@ namespace Success\AdsBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class CampaignBannerType extends AbstractType {
 
-  public function buildForm(FormBuilderInterface $builder, array $options) {
-    $options_file = array('required' => false);
-    $options_file['data_class'] = null;
-    /*if (($subject = $this->getSubject()) && $subject->getImage()) {
-      $path = $subject->getWebPath();
-      $options['help'] = '<img src="' . $path . '" width="290" />';
-    }*/
+  private $dataClass;
 
+  public function __construct($dataClass) {
+    $this->dataClass = $dataClass;
+  }
+
+  public function buildForm(FormBuilderInterface $builder, array $options) {
     $builder
-      ->add('name', 'text')
-      ->add('pricePerDay', 'text')
-      ->add('active')
-      ->add('file', 'file', $options_file)
+      ->add('link', 'text', array(
+          'label' => 'campaignBanner.form.link'
+      ))
+      ->add('file', 'file', array(
+          'label' => 'campaignBanner.form.file',
+          'required' => false,
+          'data_class' => null
+      ))
     ;
   }
 
   public function getName() {
-    return 'success_ads';
+    return 'success_campaign_banner';
   }
 
+  public function setDefaultOptions(OptionsResolverInterface $resolver) {
+    $resolver->setDefaults(array(
+        'translation_domain' => 'SuccessAdsBundle',
+        'data_class' => $this->dataClass
+    ));
+  }
 }

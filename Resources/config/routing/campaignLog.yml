@@ -1,0 +1,3 @@
+campaignLog_stats:
+  pattern: /campaign/stats/{campaign_id}/
+  defaults: { _controller: SuccessAdsBundle:CampaignLog:stats }

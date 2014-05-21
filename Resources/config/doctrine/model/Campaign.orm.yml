@@ -17,7 +17,18 @@ Success\AdsBundle\Entity\Campaign:
             columnDefinition: ENUM('fixed', 'views') NOT NULL DEFAULT 'views'
         active:
             type: boolean
-            nullable: true
+            nullable: false
+            options:
+                default: 1
+        verified:
+            type: boolean
+            nullable: false
+            options:
+                default: 0
+        views:
+            type: integer
+            options:
+                default: 0
         createdDate:
             type: datetime
             column: created_date
@@ -50,7 +61,7 @@ Success\AdsBundle\Entity\Campaign:
     oneToOne:
         banner:
             targetEntity: Success\AdsBundle\Model\CampaignBannerInterface
-            cascade: []
+            cascade: [persist]
             nullable: true
             joinColumn:
                 name: campaign_banner_id

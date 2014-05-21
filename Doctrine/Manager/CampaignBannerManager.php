@@ -2,7 +2,7 @@
 
 namespace Success\AdsBundle\Doctrine\Manager;
 
-class CampaignManager {
+class CampaignBannerManager {
 
   protected $objectManager;
   protected $class;

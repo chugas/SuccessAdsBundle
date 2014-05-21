@@ -14,7 +14,7 @@ class CampaignLog implements CampaignLogInterface {
   
   protected $active;
 
-  function __construct(\Success\AdsBundle\Model\Campaign $campaign = null) {
+  function __construct(\Success\AdsBundle\Model\CampaignInterface $campaign = null) {
     $this->campaign = $campaign;
     $this->createdDate = new \Datetime('now');
     $this->views = 1;
@@ -55,7 +55,7 @@ class CampaignLog implements CampaignLogInterface {
     return $this->clicks;
   }
 
-  public function setCampaign(\Success\AdsBundle\Model\Campaign $campaign) {
+  public function setCampaign(\Success\AdsBundle\Model\CampaignInterface $campaign) {
     $this->campaign = $campaign;
 
     return $this;

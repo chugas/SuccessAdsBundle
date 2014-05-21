@@ -9,45 +9,21 @@ class CampaignTransactionAccountRepository extends EntityRepository {
   public function getQueryBuilder($alias = 'c'){
     return $this->createQueryBuilder($alias);
   }
-
-  public function findCampaignBy(array $criteria) {
-    return $this->findOneBy($criteria);
-  }
-
-  public function findCampaigns() {
-    return $this->findAll();
-  }  
   
-  /*public function getFirstPostForTopicById($topicId) {
-    if (null == $topicId || !is_numeric($topicId) || $topicId == 0) {
-      throw new \Exception('Topic id "' . $topicId . '" is invalid!');
-    }
+  /**
+   * DoctrineDbalSingleTableAdapter::__construct() must be an instance of Doctrine\DBAL\Query\QueryBuilder
+   * 
+   * @param integer $id
+   * @return Doctrine\DBAL\Query\QueryBuilder
+   */
+  public function findByAccountQuery($id){
+    $conn = $this->_em->getConnection();
+    $qb = $conn->createQueryBuilder()
+              ->select('t.*')
+              ->from('success_campaign_transaction_account', 't')
+              ->where('t.campaign_account_id = :account_id')
+              ->setParameter('account_id', $id);
 
-    $params = array(':topicId' => $topicId);
-
-    $qb = $this->createSelectQuery(array('p', 't'));
-
-    $qb
-            ->leftJoin('p.topic', 't')
-            ->where(
-                    $qb->expr()->eq('t.id', ':topicId')
-            )
-            ->orderBy('p.createdDate', 'ASC')
-            ->setMaxResults(1)
-    ;
-
-    return $this->gateway->findPost($qb, $params);
-  }*/
-
-  /*public function findList($page, $count){
-    $consulta = $this->getQueryBuilder()
-            ->orderBy('e.timeAt', 'DESC');
-
-    $consulta->setFirstResult(($page-1)*$count);
-    $consulta->setMaxResults($count);
-    
-    //$q->useResultCache(true, 300, 'eventos.proximos'); // 5 minutos
-    
-    return $consulta->getQuery()->execute();    
-  }*/
+    return $qb;
+  }
 }

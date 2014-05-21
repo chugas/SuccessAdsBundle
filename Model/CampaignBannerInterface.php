@@ -28,14 +28,6 @@ interface CampaignBannerInterface {
 
   public function getLink();
 
-  public function setStartDate($start_date);
-
-  public function getStartDate();
-
-  public function setEndDate($end_date);
-
-  public function getEndDate();
-
   public function setHtml($html);
 
   public function getHtml();

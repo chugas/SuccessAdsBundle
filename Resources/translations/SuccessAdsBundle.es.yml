@@ -40,3 +40,9 @@ campaignLog:
         views: "Impresiones"
         credit: "Clicks"
         active: "Activo"
+
+unverified: En Verificacion
+verified: Cancelada
+active: Activa
+inactive: Inactiva
+finished: Finalizada

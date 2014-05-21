@@ -32,6 +32,7 @@ class CampaignAdmin extends Admin
         ->add('unlockedUntilDate', 'date', array('label' => 'campaign.form.unlockedUntilDate'))
         ->add('createdBy', 'sonata_type_model_list', array('btn_add' => false, 'label' => 'campaign.form.createdBy'))
         ->add('active', 'checkbox', array('label' => 'campaign.form.active'))
+        ->add('verified', 'checkbox', array('label' => 'campaign.form.verified'))              
         ->add('banner', 'sonata_type_model_list', array('btn_list' => false))
       ;
     }

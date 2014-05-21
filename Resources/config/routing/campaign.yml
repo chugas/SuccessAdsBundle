@@ -1,0 +1,23 @@
+ads_index:
+  pattern: /ads/
+  defaults: { _controller: SuccessAdsBundle:Campaign:index }
+
+ads_show:
+  pattern: /ads/{id}/show/
+  defaults: { _controller: SuccessAdsBundle:Campaign:show }
+
+ads_create:
+  pattern: /ads/create/
+  defaults: { _controller: SuccessAdsBundle:Campaign:create }
+
+ads_edit:
+  pattern: /ads/{id}/edit/
+  defaults: { _controller: SuccessAdsBundle:Campaign:edit }
+
+ads_delete:
+    pattern: /ads/{id}/delete/
+    defaults: { _controller: SuccessAdsBundle:Campaign:delete }
+
+ads_create_success:
+  pattern: /ads/create/success/
+  defaults: { _controller: SuccessAdsBundle:Campaign:success }

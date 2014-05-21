@@ -1,0 +1,147 @@
+{% extends 'SuccessAdsBundle:Frontend:layout.html.twig' %}
+
+{% block stylesheets %}
+  {{ parent() }}
+  <link href="/css/portal/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% set active = 'home' %}
+
+{% block title %}{{ 'Campañas'|trans }}{% endblock %}
+
+{% block header %}Campañas{% endblock %}
+{% block breadcrumb %}
+<li><a href="{{ path('ads_index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+<li><a href="{{ path('ads_index')}}"><i class="fa fa-th"></i> Campañas</a></li>
+<li class="active">Nueva Campaña</li>
+{% endblock %}
+
+{% block body %}
+{% spaceless %}
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title">Nueva Campaña</h3>
+      </div>
+      <form action="{{ path('ads_create') }}" method="POST" {{ form_enctype(form) }} novalidate>
+        <div class="box-body">
+          {{ form_errors(form) }}
+          {{ form_widget(form._token) }}
+          <div style="display: none">
+            {{ form_widget(form.unlockedDate) }}
+            {{ form_widget(form.unlockedUntilDate) }}
+          </div>
+          <div class="{% if form.name.vars.errors|length > 0 %}success-field-error{% endif %}">
+            {{ form_errors(form.name) }}
+            {{ form_row(form.name) }}
+          </div>
+          <div class="{% if form.pricePerDay.vars.errors|length > 0 %}success-field-error{% endif %}">
+            {{ form_errors(form.pricePerDay) }}
+            {{ form_row(form.pricePerDay) }}
+          </div>
+          {#<div class="{% if form.unlockedDate.vars.errors|length > 0 %}success-field-error{% endif %}">
+            {{ form_errors(form.unlockedDate) }}
+            {{ form_row(form.unlockedDate) }}
+          </div>
+          <div class="{% if form.unlockedUntilDate.vars.errors|length > 0 %}success-field-error{% endif %}">
+            {{ form_errors(form.unlockedUntilDate) }}
+            {{ form_row(form.unlockedUntilDate) }}
+          </div>#}
+          <div class="{% if form.unlockedUntilDate.vars.errors|length > 0 or form.unlockedDate.vars.errors|length > 0 %}success-field-error{% endif %}">
+              {{ form_errors(form.unlockedDate) }}
+              {{ form_errors(form.unlockedUntilDate) }}
+              <label class="control-label">Rango de Fechas</label>
+              <input type="text" class="form-control" id="reservation" autocomplete="off"/>
+          </div>
+
+          <div class="{% if form.banner.link.vars.errors|length > 0 %}success-field-error{% endif %}">
+            {{ form_errors(form.banner.link) }}
+            {{ form_row(form.banner.link) }}
+          </div>
+          <div class="{% if form.banner.file.vars.errors|length > 0 %}success-field-error{% endif %}">
+            {{ form_errors(form.banner.file) }}
+            {{ form_row(form.banner.file) }}
+          </div>
+          <div class="{% if form.sections.vars.errors|length > 0 %}success-field-error{% endif %}">
+            {{ form_errors(form.sections) }}
+            {{ form_row(form.sections) }}
+          </div>
+          <div>
+            <p style="font-size: 12px; color: #999">
+             Al hacer clic en "Realizar pedido", aceptas la Declaración de derechos y responsabilidades de Agrotemario, incluida tu obligación 
+             de cumplir las Normas de publicidad de Agrotemario. No usamos los datos personales y confidenciales para la segmentación de la publicidad. 
+             Los temas que elijas para segmentar tu anuncio no reflejan las creencias personales, las características o los valores de los usuarios. 
+             El incumplimiento de los Términos y condiciones y las Normas de publicidad puede provocar consecuencias, incluida la cancelación de tus anuncios 
+             y la eliminación de tu cuenta.
+           </p>
+          </div>
+        </div>
+
+        <div class="box-footer">
+          <a href="{{ path('ads_index') }}" class="btn btn-default">Cancelar</a>
+          <button class="btn btn-primary" type="submit">Realizar pedido</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{##}
+
+{% endspaceless %}
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="/js/portal/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+  <script type="text/javascript">
+    //console.log(moment('2013-02-08 09:30:26').format('MM/DD/YYYY H:mm'));
+    $(function() {
+      $('#reservation').daterangepicker({
+        'locale': {
+            'applyLabel': 'Guardar',
+            'cancelLabel': 'Cancelar',
+            'fromLabel': 'Desde',
+            'toLabel': 'Hasta',
+            'weekLabel': 'W',
+            'customRangeLabel': 'Rangos'
+        },
+        timePicker: true, 
+        timePicker12Hour: false,
+        timePickerIncrement: 30,
+        format: 'MM/DD/YYYY H:mm',
+        startDate: moment().add('days', 1),
+        minDate: moment()
+      },
+      function(start, end) {
+        /*console.log('Desde');       
+        console.log(start.format("YYYY"));
+        console.log(start.format("M"));
+        console.log(start.format("D"));
+        console.log(start.format("H"));
+        console.log(start.format("m"));        
+        console.log('Hasta');
+        console.log(end.format("YYYY"));
+        console.log(end.format("M"));
+        console.log(end.format("D"));
+        console.log(end.format("H"));
+        console.log(end.format("m"));*/
+        // Desde
+        $('#success_campaign_unlockedDate_date_year option[value="'+start.format("YYYY")+'"]').prop('selected', true);
+        $('#success_campaign_unlockedDate_date_month option[value="'+start.format("M")+'"]').prop('selected', true);
+        $('#success_campaign_unlockedDate_date_day option[value="'+start.format("D")+'"]').prop('selected', true);
+        $('#success_campaign_unlockedDate_time_hour option[value="'+start.format("H")+'"]').prop('selected', true);
+        $('#success_campaign_unlockedDate_time_minute option[value="'+start.format("m")+'"]').prop('selected', true);
+
+         // Hasta
+        $('#success_campaign_unlockedUntilDate_date_year option[value="'+end.format("YYYY")+'"]').prop('selected', true);
+        $('#success_campaign_unlockedUntilDate_date_month option[value="'+end.format("M")+'"]').prop('selected', true);
+        $('#success_campaign_unlockedUntilDate_date_day option[value="'+end.format("D")+'"]').prop('selected', true);
+        $('#success_campaign_unlockedUntilDate_time_hour option[value="'+end.format("H")+'"]').prop('selected', true);
+        $('#success_campaign_unlockedUntilDate_time_minute option[value="'+end.format("m")+'"]').prop('selected', true);
+      });
+    });
+  </script>
+{% endblock %}

@@ -25,7 +25,8 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->addDefaultsIfNotSet()
             ->children()
-                ->scalarNode('driver')->defaultValue(SuccessAdsBundle::DRIVER_DOCTRINE_ORM)->end()
+                ->scalarNode('driver')->defaultValue(SuccessAdsBundle::DRIVER_DOCTRINE_ORM)->end()                
+                ->floatNode('pricePerView')->defaultValue(0.50)->end()
             ->end()
         ;
 
@@ -48,8 +49,10 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('model')->defaultValue('Success\AdsBundle\Entity\Campaign')->end()
                                 ->scalarNode('controller')->defaultValue('Success\AdsBundle\Controller\CampaignController')->end()
                                 ->scalarNode('repository')->defaultValue('Success\AdsBundle\Doctrine\Repository\CampaignRepository')->end()
+                                ->scalarNode('manager')->defaultValue('Success\AdsBundle\Doctrine\Manager\CampaignManager')->end()                
                                 ->scalarNode('form')->defaultValue('Success\AdsBundle\Form\CampaignType')->end()
                                 ->scalarNode('admin')->defaultValue('Success\AdsBundle\Admin\CampaignAdmin')->end()
+                                ->scalarNode('filter')->defaultValue('Success\AdsBundle\Filter\CampaignFilter')->end()
                             ->end()
                         ->end()
 
@@ -60,6 +63,7 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('model')->defaultValue('Success\AdsBundle\Entity\CampaignBanner')->end()
                                 ->scalarNode('controller')->defaultValue('Success\AdsBundle\Controller\CampaignBannerController')->end()
                                 ->scalarNode('repository')->defaultValue('Success\AdsBundle\Doctrine\Repository\CampaignBannerRepository')->end()
+                                ->scalarNode('manager')->defaultValue('Success\AdsBundle\Doctrine\Manager\CampaignBannerManager')->end()
                                 ->scalarNode('form')->defaultValue('Success\AdsBundle\Form\CampaignBannerType')->end()
                                 ->scalarNode('admin')->defaultValue('Success\AdsBundle\Admin\CampaignBannerAdmin')->end()
                             ->end()
@@ -71,7 +75,9 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('model')->defaultValue('Success\AdsBundle\Entity\CampaignLog')->end()
                                 ->scalarNode('controller')->defaultValue('Success\AdsBundle\Controller\CampaignLogController')->end()
                                 ->scalarNode('repository')->defaultValue('Success\AdsBundle\Doctrine\Repository\CampaignLogRepository')->end()
+                                ->scalarNode('manager')->defaultValue('Success\AdsBundle\Doctrine\Manager\CampaignLogManager')->end()
                                 ->scalarNode('admin')->defaultValue('Success\AdsBundle\Admin\CampaignLogAdmin')->end()
+                                ->scalarNode('filter')->defaultValue('Success\AdsBundle\Filter\CampaignLogFilter')->end()
                             ->end()
                         ->end()
                 
@@ -82,6 +88,7 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('model')->defaultValue('Success\AdsBundle\Entity\CampaignAccount')->end()
                                 ->scalarNode('controller')->defaultValue('Success\AdsBundle\Controller\CampaignAccountController')->end()
                                 ->scalarNode('repository')->defaultValue('Success\AdsBundle\Doctrine\Repository\CampaignAccountRepository')->end()
+                                ->scalarNode('manager')->defaultValue('Success\AdsBundle\Doctrine\Manager\CampaignAccountManager')->end()
                                 ->scalarNode('form')->defaultValue('Success\AdsBundle\Form\CampaignAccountType')->end()
                                 ->scalarNode('admin')->defaultValue('Success\AdsBundle\Admin\CampaignAccountAdmin')->end()
                             ->end()
@@ -94,8 +101,10 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('model')->defaultValue('Success\AdsBundle\Entity\CampaignTransactionAccount')->end()
                                 ->scalarNode('controller')->defaultValue('Success\AdsBundle\Controller\CampaignTransactionAccountController')->end()
                                 ->scalarNode('repository')->defaultValue('Success\AdsBundle\Doctrine\Repository\CampaignTransactionAccountRepository')->end()
+                                ->scalarNode('manager')->defaultValue('Success\AdsBundle\Doctrine\Manager\CampaignTransactionAccountManager')->end()
                                 ->scalarNode('form')->defaultValue('Success\AdsBundle\Form\CampaignTransactionAccountType')->end()
                                 ->scalarNode('admin')->defaultValue('Success\AdsBundle\Admin\CampaignTransactionAccountAdmin')->end()
+                                ->scalarNode('filter')->defaultValue('Success\AdsBundle\Filter\CampaignTransactionAccountFilter')->end()
                             ->end()
                         ->end()
                 

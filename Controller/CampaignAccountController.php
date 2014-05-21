@@ -3,30 +3,47 @@
 namespace Success\AdsBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class CampaignAccountController extends Controller {
 
   public function indexAction() {
-    $respuesta = $this->render('AdsBundle:Ads:index.html.twig', array());
-    return $respuesta;
-  }
+    $user = $this->getUser();
+    if(is_null($user)) {
+      throw new AccessDeniedHttpException('access denied');
+    }
+    
+    $account = $this->get('success.repository.campaignAccount')->findOneByUser($user);
+    if(!$account){
+      throw new NotFoundHttpException('Account not found');
+    }
+    
+    // Creamos la QueryBuilder
+    $qb =  $this->get('success.repository.campaignTransactionAccount')->findByAccountQuery($account->getId());
 
-  public function showAction($id) {
-    $respuesta = $this->render('AdsBundle:Ads:show.html.twig', array());
-    return $respuesta;
-  }
-  
-  public function editAction($id) {
-    $respuesta = $this->render('AdsBundle:Ads:edit.html.twig', array());
-    return $respuesta;
-  }
-  
-  public function createAction() {
-    $respuesta = $this->render('AdsBundle:Ads:create.html.twig', array());
-    return $respuesta;
+    // Obtenemos el orden
+    $sort_by = 'created_date';
+    $sort_order = 'desc';
+
+    // Instanciamos el manejador
+    $service = $this->get('success.campaignTransactionAccount.filter');
+    // Seteamos Adaptador
+    $service->setAdapter(\Success\AdsBundle\Filter\CoreFilter::DOCTRINE_DBAL);
+    // Inyectamos el Request
+    $service->setRequest($this->get('request'));
+    // Seteamos QueryBuilder
+    $service->setQueryBuilder($qb);
+    // Seteamos el Orden por defecto
+    $service->setOrderBy($sort_by, $sort_order);
+    $service->setMaxPerPage(25);
+
+    return $this->render('SuccessAdsBundle:Frontend/CampaignAccount:index.html.twig', 
+            array(
+              'account' => $account,
+              'filter' => $service->getFormFilter()->createView(),                
+              'service' => $service
+            ));
   }
 
   /*public function securityCheck($news){

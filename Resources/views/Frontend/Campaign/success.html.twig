@@ -1,0 +1,17 @@
+{% extends 'SuccessAdsBundle:Frontend:layout.html.twig' %}
+
+{% block body %}
+{% spaceless %}
+
+<h1>Anuncios en Agrotemario</h1>
+
+<p>
+  Tu campaña ha sido creada satisfactoriamente.<br /><br />
+  Una vez validada te enviaremos la factura para que efectues el pago.<br /><br />
+  Muchas Gracias!
+</p>
+
+<a href="{{ path('ads_index') }}">Continuar</a>
+
+{% endspaceless %}
+{% endblock %}

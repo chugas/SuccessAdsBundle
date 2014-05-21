@@ -6,7 +6,7 @@ Success\AdsBundle\Entity\CampaignLog:
         clicks:
             type: integer
         createdDate:
-            type: datetime
+            type: date
             column: created_date
             nullable: false
         active:

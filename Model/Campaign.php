@@ -8,7 +8,13 @@ class Campaign implements CampaignInterface {
   
   const TYPE_FIXED = 'fixed';
   const TYPE_VIEWS = 'views';
-    
+  
+  const STATE_UNVERIFIED  = 'unverified';
+  const STATE_VERIFIED    = 'verified';
+  const STATE_ACTIVE      = 'active';
+  const STATE_INACTIVE    = 'inactive';
+  const STATE_FINISHED    = 'finished';
+  
   protected $code;
 
   /** @var Name $name */
@@ -19,9 +25,15 @@ class Campaign implements CampaignInterface {
 
   /** @var Boolean $active */
   protected $active;
-  
+
+  /** @var Boolean $verified */
+  protected $verified;
+
   protected $campaignType;
 
+  /** @var Integer $pricePerDay */
+  protected $views;
+  
   /** @var \DateTime $createdDate */
   protected $createdDate;
 
@@ -97,6 +109,26 @@ class Campaign implements CampaignInterface {
 
   public function setActive($active) {
     $this->active = $active;
+
+    return $this;
+  }
+
+  public function getVerified() {
+    return $this->verified;
+  }
+
+  public function setVerified($verified) {
+    $this->verified = $verified;
+
+    return $this;
+  }
+
+  public function getViews() {
+    return $this->views;
+  }
+
+  public function setViews($views) {
+    $this->views = $views;
 
     return $this;
   }
@@ -266,6 +298,32 @@ class Campaign implements CampaignInterface {
     $this->banner = $banner;
     
     return $this;
+  }
+  
+  public function getState(){
+    if($this->getVerified()){
+      
+      if($this->getActive()){
+        
+        $now = new \DateTime();
+        
+        if($now > $this->getUnlockedUntilDate()){
+         
+          return self::STATE_FINISHED;
+          
+        } else {
+          
+          return self::STATE_ACTIVE;
+
+        }        
+
+      } else {
+        return self::STATE_INACTIVE;
+      }
+      
+    } else {
+      return self::STATE_UNVERIFIED;
+    }
   }
 
 }

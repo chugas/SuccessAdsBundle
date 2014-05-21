@@ -16,7 +16,7 @@ interface CampaignLogInterface {
 
   public function getClicks();
 
-  public function setCampaign(\Success\AdsBundle\Model\Campaign $campaign);
+  public function setCampaign(\Success\AdsBundle\Model\CampaignInterface $campaign);
 
   public function getCampaign();
 

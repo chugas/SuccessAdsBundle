@@ -2,7 +2,7 @@
 
 namespace Success\AdsBundle\Doctrine\Manager;
 
-class CampaignManager {
+class CampaignLogManager {
 
   protected $objectManager;
   protected $class;
@@ -23,33 +23,33 @@ class CampaignManager {
    */
   public function create() {
     $class = $this->getClass();
-    $campaign = new $class;
+    $campaignLog = new $class;
 
-    return $campaign;
+    return $campaignLog;
   }
 
   /**
    * {@inheritDoc}
    */
-  public function reload($campaign) {
-    $this->objectManager->refresh($campaign);
+  public function reload($campaignLog) {
+    $this->objectManager->refresh($campaignLog);
   }
 
   /**
-   * Updates a campaign.
+   * Updates a campaignLog.
    *
-   * @param Application\Success\AdsBundle\Model\Campaign $campaign
+   * @param Application\Success\AdsBundle\Model\campaignLog $campaignLog
    * @param Boolean       $andFlush Whether to flush the changes (default true)
    */
-  public function update($campaign, $andFlush = true) {
-    $this->objectManager->persist($campaign);
+  public function update($campaignLog, $andFlush = true) {
+    $this->objectManager->persist($campaignLog);
     if ($andFlush) {
       $this->objectManager->flush();
     }
   }  
 
-  public function delete($campaign) {
-    $this->objectManager->remove($campaign);
+  public function delete($campaignLog) {
+    $this->objectManager->remove($campaignLog);
     $this->objectManager->flush();
   }
 

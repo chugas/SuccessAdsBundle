@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <![endif]-->
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link href="/backend/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+    <link href="/backend/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="/backend/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    {%- block stylesheets -%}{%- endblock -%}
+  </head>
+
+  {% set active = 'home' %}
+
+  <body class="skin-black">
+    <header class="header">
+      <a href="" class="logo">
+        IT SUCCESS
+      </a>
+
+      <nav class="navbar navbar-static-top" role="navigation">
+        <div class="navbar-right">
+          <ul class="nav navbar-nav">
+            <li class="dropdown user user-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="glyphicon glyphicon-user"></i>
+                <span>{{ app.user }} <i class="caret"></i></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li class="user-header bg-light-blue">
+                  <img src="/backend/img/avatar5.png" class="img-circle" alt="{{ app.user }}" />
+                  <p>
+                    {{ app.user }}
+                    <small>Miembro desde 2014</small>
+                  </p>
+                </li>
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                  <div class="pull-left">
+                    <a href="{{ path('ads_index') }}" class="btn btn-default btn-flat">Campañas</a>
+                  </div>
+                  <div class="pull-right">
+                    <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat">Salir</a>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    <div class="wrapper row-offcanvas row-offcanvas-left">
+
+      <aside class="left-side sidebar-offcanvas">
+        <section class="sidebar">
+          {#<form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+              <input type="text" name="q" class="form-control" placeholder="Buscar..."/>
+              <span class="input-group-btn">
+                <button type='submit' name='seach' id='search-btn' class="btn btn-flat"><i class="fa fa-search"></i></button>
+              </span>
+            </div>
+          </form>#}
+
+          <ul class="sidebar-menu">
+            <li {% if 'homepage' == active %}class="active"{% endif %}>
+              <a href="{{ path('ads_index') }}">
+                <i class="fa fa-dashboard"></i> <span>Campañas</span>
+              </a>
+            </li>
+            <li {% if 'account' == active %}class="active"{% endif %}>
+              <a href="{{ path('campaignTransaction_index') }}">
+                <i class="fa fa-th"></i> <span>Mi cuenta</span>
+              </a>
+            </li>
+          </ul>
+        </section>
+      </aside>
+
+      <aside class="right-side">
+        <section class="content-header">
+          <h1>
+            {% block header %}Campañas{% endblock %}
+          </h1>
+          <ol class="breadcrumb">
+            {% block breadcrumb %}
+              <li><a href="{{ path('ads_index') }}"><i class="fa fa-dashboard"></i> Home</a></li>
+              <li class="active">{% block breadcrumb_active %}Campañas{% endblock %}</li>
+            {% endblock %}
+          </ol>
+        </section>
+
+        <section class="content-header">        
+          {% block filters %}{% endblock %}
+        </section>
+
+        <section class="content">
+          {% block body %}{% endblock %}
+        </section>
+      </aside>
+    </div>
+
+    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script src="/backend/js/AdminLTE/init.js"></script>
+    {%- block javascripts -%}{%- endblock -%}
+  </body>
+</html>
