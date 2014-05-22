@@ -54,7 +54,7 @@ class CampaignController extends Controller {
 
     // Obtenemos el orden
     $sort_by = 'created_date';
-    $sort_order = 'desc';
+    $sort_order = 'asc';
 
     // Instanciamos el manejador
     $service = $this->get('success.campaignLog.filter');

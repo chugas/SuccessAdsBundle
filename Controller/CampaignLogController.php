@@ -16,10 +16,11 @@ class CampaignLogController extends Controller {
     // Validar si el usuario tiene permisos para consultar por la campania
 
     $qb =  $this->get('success.repository.campaignLog')->findStatsQuery($campaign_id);
+//die('aca');
 
     // Obtenemos el orden
     $sort_by = 'created_date';
-    $sort_order = 'desc';
+    $sort_order = 'asc';
     
     // Instanciamos el manejador
     $service = $this->get('success.campaignLog.filter');
