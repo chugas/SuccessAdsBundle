@@ -4,19 +4,20 @@ namespace Success\AdsBundle\Model;
 
 class CampaignPlaneLog {
   
-  protected $id;
-  
   protected $campaign;
   
   protected $createdDate;
+  
+  protected $processedDate;
   
   protected $ip;
 
   function __construct() {
     $this->createdDate = new \Datetime('now');
+    $this->processedDate = null;
   }
 
-  public function setId($id) {
+  /*public function setId($id) {
     $this->id = $id;
 
     return $this;
@@ -24,7 +25,7 @@ class CampaignPlaneLog {
 
   public function getId() {
     return $this->id;
-  }
+  }*/
 
   public function setCreatedDate($createdDate) {
     $this->createdDate = $createdDate;
@@ -34,6 +35,16 @@ class CampaignPlaneLog {
 
   public function getCreatedDate() {
     return $this->createdDate;
+  }
+
+  public function setProcessedDate($processedDate) {
+    $this->processedDate = $processedDate;
+
+    return $this;
+  }
+
+  public function getProcessedDate() {
+    return $this->processedDate;
   }
 
   public function setIp($ip) {

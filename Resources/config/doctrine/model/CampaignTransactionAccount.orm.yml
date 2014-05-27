@@ -23,9 +23,11 @@ Success\AdsBundle\Entity\CampaignTransactionAccount:
     manyToOne:
         account:
             targetEntity: Success\AdsBundle\Model\CampaignAccountInterface
-            cascade: []
+            cascade: [persist]
             nullable: false
             joinColumn:
                 name: campaign_account_id
                 referencedColumnName: id
                 onDelete: CASCADE
+    lifecycleCallbacks:
+        prePersist: [syncroAccount]

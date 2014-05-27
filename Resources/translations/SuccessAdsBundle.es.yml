@@ -33,6 +33,8 @@ campaignTransactionAccount:
         credit: "Credito"
         total: "Saldo"
         account: "Cuenta"
+    concept:
+        publicidad: "Publicidad diaria"
 
 campaignLog:
     form:

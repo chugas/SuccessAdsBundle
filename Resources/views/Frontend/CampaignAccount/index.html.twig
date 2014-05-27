@@ -57,7 +57,7 @@
           <dt>Saldo</dt>
           <dd>{{ account.total }}</dd>
           <dt>Fecha de creacion</dt>
-          <dd>{{ account.createdDate | date('d-m-Y H:i') }}</dd>
+          <dd>{{ account.createdDate | date('d-m-Y H:i:s') }}</dd>
         </dl>
       </div>
     </div>
@@ -85,10 +85,10 @@
           <tbody>
             {% for campaignTransaction in service.getPager().getCurrentPageResults() %}
             <tr>
-              <td>{{ campaignTransaction.created_date | date('d-m-Y H:i') }}</td>
+              <td>{{ campaignTransaction.created_date | date('d-m-Y H:i:s') }}</td>
               <td>{{ campaignTransaction.concept }}</a></td>
-              <td>$U {{ campaignTransaction.debit }}</td>
-              <td>$U {{ campaignTransaction.credit }}</td>
+              <td>{{ (campaignTransaction.debit is not null ? '$U '~campaignTransaction.debit : '-') }}</td>
+              <td>{{ (campaignTransaction.credit is not null ? '$U '~campaignTransaction.credit : '-') }}</td>
               <td>$U {{ campaignTransaction.total }}</td>      
             </tr>
             {% endfor %}
@@ -130,9 +130,9 @@
             "bPaginate": true,
             "bLengthChange": true,
             "bFilter": false,
-            "bSort": true,
+            "bSort": false,
             "bInfo": true,
-            "bAutoWidth": false,
+            "bAutoWidth": true,
             "oLanguage": {
               "sInfo": "_START_ a _END_ de _TOTAL_ registros",
               "sLengthMenu": "Ver _MENU_ por pagina",

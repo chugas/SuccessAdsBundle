@@ -12,6 +12,9 @@ class CampaignTransactionAccount implements CampaignTransactionAccountInterface 
   
   public function __construct() {
     $this->createdDate = new \Datetime('now');
+    $this->debit = null;
+    $this->credit = null;
+    $this->total = 0;
   }
   
   public function __toString() {
@@ -44,7 +47,7 @@ class CampaignTransactionAccount implements CampaignTransactionAccountInterface 
   
   public function setCredit($credit){
     $this->credit = $credit;
-
+    
     return $this;    
   }
   
@@ -76,5 +79,19 @@ class CampaignTransactionAccount implements CampaignTransactionAccountInterface 
     $this->total = $total;
     
     return $this;
-  }  
+  }
+  
+  public function syncroAccount(){
+    $saldo = $this->account->getTotal();
+    if(!is_null($this->getDebit())){
+      $saldo = $saldo - $this->getDebit();
+      $this->setTotal($saldo);
+    }
+    if(!is_null($this->getCredit())){
+      $saldo = $saldo + $this->getCredit();
+      $this->setTotal($saldo);
+    }
+
+    $this->account->setTotal($saldo);
+  }
 }

@@ -27,6 +27,7 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('driver')->defaultValue(SuccessAdsBundle::DRIVER_DOCTRINE_ORM)->end()                
                 ->floatNode('pricePerView')->defaultValue(0.50)->end()
+                ->scalarNode('helper')->defaultValue('Success\AdsBundle\Component\Helper\Helper')->end()
             ->end()
         ;
 
@@ -107,7 +108,13 @@ class Configuration implements ConfigurationInterface
                                 ->scalarNode('filter')->defaultValue('Success\AdsBundle\Filter\CampaignTransactionAccountFilter')->end()
                             ->end()
                         ->end()
-                
+
+                        ->arrayNode('campaignRealLog')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('repository')->defaultValue('Success\AdsBundle\Doctrine\Repository\CampaignRealLogRepository')->end()
+                            ->end()
+                        ->end()                
                 
                     ->end()
                 ->end()

@@ -100,7 +100,7 @@
             <tr>
               <td>{{ campaignLog.created_date | date('d/m/Y') }}</td>
               <td>{{ campaignLog.views }}</a></td>
-              <td>$U {{ campaignLog.views * 4.98 }}</td>
+              <td>$U {{ campaignLog.views * pricePerView }}</td>
             </tr>
             {% endfor %}
           </tbody>
@@ -123,6 +123,7 @@
   <script src="/js/portal/charts/highcharts.js" type="text/javascript"></script>
   <script src="/js/portal/datatables/jquery.dataTables-min.js" type="text/javascript"></script>
   <script src="/js/portal/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+  <script src="/js/portal/datatables/date-eu.js" type="text/javascript"></script>  
   <script src="/js/portal/bootstrap/datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
   <script src="/js/portal/bootstrap/datepicker/js/locales/bootstrap-datepicker.es.js" type="text/javascript"></script>  
   <script type="text/javascript">
@@ -272,7 +273,7 @@
             "bFilter": false,
             "bSort": true,
             "bInfo": true,
-            "bAutoWidth": false,
+            "bAutoWidth": true,
             "oLanguage": {
               "sInfo": "_START_ a _END_ de _TOTAL_ registros",
               "sLengthMenu": "Ver _MENU_ por pagina",
@@ -281,6 +282,9 @@
                 "sNext": ""
               }
             },
+            "aoColumns": [
+              { "sType": "date-eu", "aTargets": [0] }, null, null
+            ],            
             "iDisplayLength": 25
         });
     });

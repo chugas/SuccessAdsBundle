@@ -41,7 +41,7 @@ class CampaignTransactionAccountAdmin extends Admin
     {
     }
 
-    public function prePersist($object){
+    /*public function prePersist($object){
       $campaignAccount = $object->getAccount();
       
       $saldo = $campaignAccount->getTotal();
@@ -55,6 +55,6 @@ class CampaignTransactionAccountAdmin extends Admin
       }
       
       $campaignAccount->setTotal($saldo);
-    }
+    }*/
 
 }

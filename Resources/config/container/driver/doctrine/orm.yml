@@ -118,3 +118,9 @@ services:
         arguments:
             - '@success.entity_manager.campaignTransactionAccount'
             - %success.model.campaignTransactionAccount.class%
+
+    # campaignRealLog
+    success.repository.campaignRealLog:
+        class: %success.repository.campaignRealLog.class%
+        arguments:
+            - '@doctrine.dbal.sqlite_connection'

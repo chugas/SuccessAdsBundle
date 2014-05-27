@@ -15,6 +15,7 @@ class CampaignAccount implements CampaignAccountInterface {
   public function __construct() {
     $this->createdDate = new \Datetime('now');    
     $this->code = 'AGAC' . $this->createdDate->format('Ym') . strtoupper(substr(sha1(uniqid(mt_rand(), true)), 30, 10));
+    $this->total = 0;
   }
   
   public function __toString() {

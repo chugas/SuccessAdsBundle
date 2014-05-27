@@ -24,6 +24,9 @@ class SuccessAdsExtension extends Extension {
     $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
     $loader->load('admin.yml');
 
+    $container->setParameter('success_ads.helper', $config['helper']);
+    $loader->load('services.yml');
+    
     //$loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
     
     $driver = $config['driver'];

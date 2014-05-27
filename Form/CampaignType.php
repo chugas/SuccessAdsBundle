@@ -27,11 +27,11 @@ class CampaignType extends AbstractType {
                     new Length(array('min' => 2))
                 )
             ))
+            //, new Type(array('type' => 'float'))
             ->add('pricePerDay', 'text', array(
                 'label' => 'campaign.form.pricePerDay',
                 'constraints' => array(
-                    new NotBlank(),
-                    new Type(array('type' => 'float'))
+                    new NotBlank()
                 )
             ))
             ->add('unlockedDate', 'datetime', array(

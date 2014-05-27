@@ -10,4 +10,8 @@ class CampaignAccountRepository extends EntityRepository {
     return $this->createQueryBuilder($alias);
   }
 
+  public function findAccountBy(array $criteria) {
+    return $this->findOneBy($criteria);
+  }
+
 }

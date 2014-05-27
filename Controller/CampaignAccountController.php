@@ -36,7 +36,7 @@ class CampaignAccountController extends Controller {
     $service->setQueryBuilder($qb);
     // Seteamos el Orden por defecto
     $service->setOrderBy($sort_by, $sort_order);
-    $service->setMaxPerPage(25);
+    $service->setMaxPerPage(365);
 
     return $this->render('SuccessAdsBundle:Frontend/CampaignAccount:index.html.twig', 
             array(

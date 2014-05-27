@@ -27,6 +27,19 @@ class CampaignRepository extends EntityRepository {
     return $this->findAll();
   }
   
+  public function intelligentFinder(){
+    $qb = $this->getQueryBuilder('c')
+            ->innerJoin('c.banner', 'b')
+            ->where('c.active = 1')
+            ->andWhere('c.verified = 1')
+            ->andWhere('c.unlockedDate <= CURRENT_TIMESTAMP()')
+            ->andWhere('c.unlockedUntilDate > CURRENT_TIMESTAMP()')
+            ->orderBy('c.pricePerDay', 'DESC');
+    $qb->setMaxResults(20);
+    
+    return $qb->getQuery()->execute();
+  }
+  
   /*public function getFirstPostForTopicById($topicId) {
     if (null == $topicId || !is_numeric($topicId) || $topicId == 0) {
       throw new \Exception('Topic id "' . $topicId . '" is invalid!');
