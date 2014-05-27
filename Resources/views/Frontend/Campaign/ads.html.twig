@@ -1,0 +1,12 @@
+{% for campaign in campaigns %}
+  <div class="adv">
+    <a href="{{ campaign.banner.link }}" {% if true %}target="_blank"{% endif %}>
+      {% if false %}
+        <img src="{{ banner.getWebPath() | apply_filter(filter) }}" alt="" />
+      {% else %}
+        <img alt="{{ campaign.name }}" src="{{ campaign.getBanner().getWebPath() | apply_filter('ads_simple') }}" />
+      {% endif %}
+    </a>
+  </div>
+{% endfor %}
+
