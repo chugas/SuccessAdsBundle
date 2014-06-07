@@ -35,16 +35,16 @@ EOT
     $debug = (boolean)$input->getOption('debug');
     
     $container = $this->getContainer();
-    $conn_sqlite = $container->get('doctrine.dbal.sqlite_connection');
+    $conn = $container->get('doctrine.dbal.default_connection');
     $em = $container->get('doctrine')->getManager();
 
     try {
-      $sql = 'SELECT campaign_id, DATE(created_date) as created, count(campaign_id) as views FROM campaign_real_log WHERE processed_date is null GROUP BY campaign_id, created ORDER BY created ASC LIMIT ' . $limit;
-      $rows = $conn_sqlite->fetchAll($sql);
+      $sql = 'SELECT campaign_id, DATE(created_date) as created, count(campaign_id) as views FROM campaign_real_log WHERE processed_date is null AND DATE(created_date) < CURRENT_DATE() GROUP BY campaign_id, created ORDER BY created ASC LIMIT ' . $limit;
+      $rows = $conn->fetchAll($sql);
 
       foreach($rows as $record){
 
-        $em->transactional(function($em) use ($conn_sqlite, $container, $record, $debug, $output) {
+        $em->transactional(function($em) use ($conn, $container, $record, $debug, $output) {
 
           $id = $record['campaign_id'];
           $created = $record['created'];
@@ -73,15 +73,15 @@ EOT
 
             // Sumarizacion de la estadistica en la tabla success_campaign_log
             // campaign_id views created_date
-            $campaignLog = $container->get('success.manager.campaignLog')->create();
-            $campaignLog->setViews($views);
+            $campaignLog = $container->get('success.manager.campaignLog')->getOneBy($campaign, $createdDate);
+            $campaignLog->setViews($campaignLog->getViews()+$views);
             $campaignLog->setCampaign($campaign);
             $campaignLog->setCreatedDate($createdDate);
             $em->persist($campaignLog);
 
             // Actualizacion de los gastos de la cuenta success_campaign_transaction_account success_campaign_account
             $account = $container->get('success.repository.campaignAccount')->findAccountBy( array('user' => $user->getId()) );
-            if(!$account){
+            if(is_null($account)){
               $account = $container->get('success.manager.campaignAccount')->create();
               $account->setUser($user);
               $account->setCurrency('UYU');
@@ -104,29 +104,30 @@ EOT
 
             $em->persist($transaction);
 
-            $conn_sqlite->beginTransaction();
+            //$conn->beginTransaction();
             $sql = 'UPDATE campaign_real_log SET processed_date = CURRENT_TIMESTAMP WHERE campaign_id = ? AND DATE(created_date) = ?';
-            $stmt = $conn_sqlite->prepare($sql);
+            $stmt = $conn->prepare($sql);
             $stmt->bindValue(1, $id);
             $stmt->bindValue(2, $created);
             $stmt->execute();
 
             //$em->flush();
-            $conn_sqlite->commit();
-            
-            sleep(1);
+            //$conn->commit();
+
           } else {
 
-            $conn_sqlite->beginTransaction();
+            //$conn->beginTransaction();
             $sql = 'UPDATE campaign_real_log SET processed_date = CURRENT_TIMESTAMP WHERE campaign_id = ? AND DATE(created_date) = ?';
-            $stmt = $conn_sqlite->prepare($sql);
+            $stmt = $conn->prepare($sql);
             $stmt->bindValue(1, $id);
             $stmt->bindValue(2, $created);
             $stmt->execute();
 
-            $conn_sqlite->commit();
+            //$conn->commit();
 
           }
+
+          sleep(1);
         });
       }
 

@@ -29,6 +29,9 @@ class Campaign implements CampaignInterface {
   /** @var Boolean $verified */
   protected $verified;
 
+  /** @var Boolean $blocked */
+  protected $blocked;
+
   protected $campaignType;
 
   /** @var Integer $pricePerDay */
@@ -56,6 +59,9 @@ class Campaign implements CampaignInterface {
   protected $banner = null;
 
   public function __construct() {
+    $this->blocked = false;
+    $this->verified = false;
+    $this->views = 0;
     $this->createdDate = new \Datetime('now');
     $this->unlockedDate = new \Datetime('now');
     $this->unlockedUntilDate = new \Datetime('now + 7 days');
@@ -119,6 +125,16 @@ class Campaign implements CampaignInterface {
 
   public function setVerified($verified) {
     $this->verified = $verified;
+
+    return $this;
+  }
+
+  public function getBlocked() {
+    return $this->blocked;
+  }
+
+  public function setBlocked($blocked) {
+    $this->blocked = $blocked;
 
     return $this;
   }
@@ -246,6 +262,11 @@ class Campaign implements CampaignInterface {
    */
   public function isLocked() {
     return $this->unlockedUntilDate > new \Datetime('now') ? false : true;
+  }
+
+  public function isOutOfDate() {
+    $now = new \Datetime('now');
+    return !($now <= $this->unlockedUntilDate && $now >= $this->unlockedDate);
   }
 
   /**

@@ -8,10 +8,20 @@ class Helper {
 
   protected $campaignRepository;
   protected $realLogRepository;
-
-  public function __construct(ObjectRepository $campaignRepository, $realLogRepository) {
+  protected $campaignRealStatsRepository;
+  protected $managerRealStats;
+  protected $managerCampaign;
+  protected $pricePerView;
+  protected $campaignAccountRepository;
+  
+  public function __construct(ObjectRepository $campaignRepository, $realLogRepository, $campaignRealStatsRepository, $managerRealStats, $managerCampaign, $campaignAccountRepository, $pricePerView) {
     $this->campaignRepository = $campaignRepository;
     $this->realLogRepository = $realLogRepository;
+    $this->campaignRealStatsRepository = $campaignRealStatsRepository;
+    $this->managerRealStats = $managerRealStats;
+    $this->managerCampaign = $managerCampaign;
+    $this->pricePerView = $pricePerView;
+    $this->campaignAccountRepository = $campaignAccountRepository;
   }
 
   public function processAds($ip){

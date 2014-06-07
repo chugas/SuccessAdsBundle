@@ -124,5 +124,13 @@ class CampaignAccount implements CampaignAccountInterface {
     $this->deletedDate = $deletedDate;
 
     return $this;
-  }  
+  }
+  
+  public function isBankruptcy($gasto = null){
+    if(!is_null($gasto)){
+      $this->total = $this->total - $gasto;
+    }
+    
+    return $this->total <= 0;
+  }
 }

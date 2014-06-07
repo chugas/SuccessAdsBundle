@@ -26,18 +26,44 @@ class CampaignRepository extends EntityRepository {
   public function findCampaigns() {
     return $this->findAll();
   }
-  
+
+  public function findCampaignsByIds($ids) {
+    $qb = $this->getQueryBuilder('c');
+    $qb->add('where', $qb->expr()->in('c.id', $ids));
+    return $qb->getQuery()->execute();
+  }
+
   public function intelligentFinder(){
     $qb = $this->getQueryBuilder('c')
             ->innerJoin('c.banner', 'b')
             ->where('c.active = 1')
             ->andWhere('c.verified = 1')
+            ->andWhere('c.blocked = 0')            
             ->andWhere('c.unlockedDate <= CURRENT_TIMESTAMP()')
             ->andWhere('c.unlockedUntilDate > CURRENT_TIMESTAMP()')
             ->orderBy('c.pricePerDay', 'DESC');
     $qb->setMaxResults(20);
     
     return $qb->getQuery()->execute();
+  }
+  
+  /**
+   * DoctrineDbalSingleTableAdapter::__construct() must be an instance of Doctrine\DBAL\Query\QueryBuilder
+   * 
+   */
+  public function findCampaignRecords(){
+    $conn = $this->_em->getConnection();
+    $qb = $conn->createQueryBuilder()
+              ->select('c.*')
+              ->from('success_campaign', 'c')
+              ->where('c.active = 1')
+              ->andWhere('c.verified = 1')
+              ->andWhere('c.blocked = 0')
+              ->andWhere('c.unlocked_date <= CURRENT_TIMESTAMP()')
+              ->andWhere('c.unlocked_until_date > CURRENT_TIMESTAMP()');
+
+    $stmt = $qb->execute();
+    return $stmt->fetchAll();
   }
   
   /*public function getFirstPostForTopicById($topicId) {

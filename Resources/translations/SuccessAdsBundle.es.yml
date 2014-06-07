@@ -4,6 +4,8 @@ campaign:
         code: "Codigo"
         pricePerDay: "Presupuesto por dia"
         active: "Activo"
+        verified: "Verificada"
+        blocked: "Bloqueada"
         unlockedDate: "Desde"
         unlockedUntilDate: "Hasta"
         createdBy: "Usuario"

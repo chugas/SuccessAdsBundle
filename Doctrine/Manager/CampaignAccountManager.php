@@ -52,7 +52,7 @@ class CampaignAccountManager {
     $this->objectManager->remove($campaign);
     $this->objectManager->flush();
   }
-
+  
   /**
    * {@inheritDoc}
    */

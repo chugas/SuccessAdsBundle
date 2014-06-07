@@ -52,6 +52,14 @@ class CampaignLogManager {
     $this->objectManager->remove($campaignLog);
     $this->objectManager->flush();
   }
+  
+  public function getOneBy($campaign, $date){
+    $campaignLog = $this->repository->findOneBy(array('campaign' => $campaign, 'createdDate' => $date));
+    if(is_null($campaignLog)){
+      $campaignLog = $this->create();              
+    }
+    return $campaignLog;
+  }  
 
   /**
    * {@inheritDoc}

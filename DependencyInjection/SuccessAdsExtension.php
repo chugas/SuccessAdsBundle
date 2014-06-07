@@ -6,7 +6,6 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
-use Symfony\Component\DependencyInjection\Loader\XmlFileLoader;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Success\AdsBundle\SuccessAdsBundle;
 
@@ -27,8 +26,6 @@ class SuccessAdsExtension extends Extension {
     $container->setParameter('success_ads.helper', $config['helper']);
     $loader->load('services.yml');
     
-    //$loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-    
     $driver = $config['driver'];
     
     $this->loadDriver($driver, $config, $loader);
@@ -46,7 +43,7 @@ class SuccessAdsExtension extends Extension {
    *
    * @param string        $driver
    * @param array         $config
-   * @param XmlFileLoader $loader
+   * @param YamlFileLoader $loader
    *
    * @throws \InvalidArgumentException
    */
@@ -55,7 +52,6 @@ class SuccessAdsExtension extends Extension {
       throw new \InvalidArgumentException(sprintf('Driver "%s" is unsupported by AdsBundle.', $driver));
     }
 
-    $classes = $config['classes'];
     $loader->load(sprintf('container/driver/%s.yml', $driver));
 
     $loader->load('container/campaign.yml');

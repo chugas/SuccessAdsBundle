@@ -16,7 +16,7 @@ class CampaignLog implements CampaignLogInterface {
 
   function __construct() {
     $this->createdDate = new \Datetime('now');
-    $this->views = 1;
+    $this->views = 0;
     $this->clicks = 0;
   }
 

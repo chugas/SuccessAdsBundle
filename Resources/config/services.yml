@@ -3,7 +3,7 @@ parameters:
 services:
     success.campaign.helper:
         class: %success_ads.helper%
-        arguments: ['@success.repository.campaign', '@success.repository.campaignRealLog']
+        arguments: ['@success.repository.campaign', '@success.repository.campaignRealLog', '@success.repository.campaignRealStats', '@success.manager.campaignRealStats', '@success.manager.campaign', '@success.repository.campaignAccount', '%price_per_view%']
 
     success.campaign.twig:
         class: Success\AdsBundle\Twig\AdsExtension

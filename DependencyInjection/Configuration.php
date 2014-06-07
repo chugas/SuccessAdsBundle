@@ -114,8 +114,16 @@ class Configuration implements ConfigurationInterface
                             ->children()
                                 ->scalarNode('repository')->defaultValue('Success\AdsBundle\Doctrine\Repository\CampaignRealLogRepository')->end()
                             ->end()
-                        ->end()                
-                
+                        ->end()
+
+                        ->arrayNode('campaignRealStats')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->scalarNode('repository')->defaultValue('Success\AdsBundle\Doctrine\Repository\CampaignRealStatsRepository')->end()
+                                ->scalarNode('manager')->defaultValue('Success\AdsBundle\Doctrine\Manager\CampaignRealStatsManager')->end()
+                            ->end()
+                        ->end()
+
                     ->end()
                 ->end()
             ->end()

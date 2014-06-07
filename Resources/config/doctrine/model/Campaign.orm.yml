@@ -25,6 +25,11 @@ Success\AdsBundle\Entity\Campaign:
             nullable: false
             options:
                 default: 0
+        blocked:
+            type: boolean
+            nullable: false
+            options:
+                default: 0
         views:
             type: integer
             options:

@@ -123,4 +123,15 @@ services:
     success.repository.campaignRealLog:
         class: %success.repository.campaignRealLog.class%
         arguments:
-            - '@doctrine.dbal.sqlite_connection'
+            - '@doctrine.dbal.default_connection'
+
+    # campaignRealStats
+    success.repository.campaignRealStats:
+        class: %success.repository.campaignRealStats.class%
+        arguments:
+            - '@doctrine.dbal.default_connection'
+            
+    success.manager.campaignRealStats:
+        class: %success.manager.campaignRealStats.class%
+        arguments:
+            - '@success.repository.campaignRealStats'

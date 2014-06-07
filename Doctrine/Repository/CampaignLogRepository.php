@@ -2,7 +2,6 @@
 
 namespace Success\AdsBundle\Doctrine\Repository;
 
-use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\ORM\EntityRepository;
 
 class CampaignLogRepository extends EntityRepository {
@@ -17,7 +16,7 @@ class CampaignLogRepository extends EntityRepository {
 
   public function findCampaigns() {
     return $this->findAll();
-  }  
+  }
   
   /**
    * DoctrineDbalSingleTableAdapter::__construct() must be an instance of Doctrine\DBAL\Query\QueryBuilder
