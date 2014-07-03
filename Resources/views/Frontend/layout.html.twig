@@ -74,7 +74,12 @@
             </li>
             <li {% if 'account' == active %}class="active"{% endif %}>
               <a href="{{ path('campaignTransaction_index') }}">
-                <i class="fa fa-th"></i> <span>Mi cuenta</span>
+                <i class="fa fa-th"></i> <span>Facturacion</span>
+              </a>
+            </li>
+            <li {% if 'pay' == active %}class="active"{% endif %}>
+              <a href="{{ path('campaignPayment_payment') }}">
+                <i class="fa fa-dollar"></i> <span>Depositar</span>
               </a>
             </li>
           </ul>
@@ -94,9 +99,11 @@
           </ol>
         </section>
 
+        {% block section_filters %}
         <section class="content-header">        
           {% block filters %}{% endblock %}
         </section>
+        {% endblock %}
 
         <section class="content">
           {% block body %}{% endblock %}

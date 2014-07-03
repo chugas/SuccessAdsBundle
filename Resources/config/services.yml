@@ -1,4 +1,6 @@
 parameters:
+    success.generator.order_number.class: Application\Success\PaymentsBundle\Generator\OrderNumberGenerator
+    success.listener.order_number.class: Application\Success\PaymentsBundle\EventListener\OrderNumberListener
 
 services:
     success.campaign.helper:
@@ -10,3 +12,13 @@ services:
         arguments: ['@service_container']
         tags:
             - { name: twig.extension }
+
+    success.generator.order_number:
+        class: "%success.generator.order_number.class%"
+        arguments: ["@success.repository.order"]
+
+    success.listener.order_number:
+        class: "%success.listener.order_number.class%"
+        arguments: ["@success.generator.order_number"]
+        tags:
+            - { name: kernel.event_listener, event: success.order.pre_create, method: generateOrderNumber, priority: 10 }

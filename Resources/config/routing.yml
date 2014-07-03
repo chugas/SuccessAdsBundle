@@ -9,3 +9,7 @@ campaignLog:
 campaignTransaction:
     resource: "@SuccessAdsBundle/Resources/config/routing/campaignTransactionAccount.yml"
     prefix:   /
+
+campaignPayment:
+    resource: "@SuccessAdsBundle/Resources/config/routing/campaignPayment.yml"
+    prefix:   /

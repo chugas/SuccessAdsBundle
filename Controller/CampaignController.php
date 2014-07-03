@@ -95,7 +95,6 @@ class CampaignController extends Controller {
     $form->setData($resource);
     
     if ($request->isMethod('POST')) {
-      $form->setData($resource);
 
       if ($form->bind($request)->isValid()) {
         $user = $this->getUser();
@@ -109,7 +108,17 @@ class CampaignController extends Controller {
         $this->create($resource);
         $this->setFlash('success', 'create_campaign');
 
-        return $this->redirect($this->generateUrl('ads_index'));
+        if($this->redirectPaymentPage($resource)){
+          // Pago
+          return $this->redirect($this->generateUrl('campaignPayment_index'));
+        } elseif ($this->redirectListPage($resource)) {
+          // Listado
+          return $this->redirect($this->generateUrl('ads_index'));
+        } else {
+          // Listado + Notificacion
+          return $this->redirect($this->generateUrl('campaignPayment_index'));          
+        }
+
       }
     }
     
@@ -188,6 +197,32 @@ class CampaignController extends Controller {
     $message = 'success.resource.' . $event;
     
     return $this->get('translator')->trans($message, array('%resource%' => 'flashes'), 'flashes');    
+  }
+  
+  protected function redirectPaymentPage($campaign){
+    $user = $this->getUser();
+    
+    $account = $this->get('success.repository.campaignAccount')->findAccountBy( array('user' => $user->getId()) );
+    if(is_null($account)){
+      $account = $this->get('success.manager.campaignAccount')->create();
+      $account->setUser($user);
+      $account->setCurrency('UYU');
+      $this->create($account);
+      return true;
+    }
+    
+    return $account->getTotal() <= 0;
+  }
+  
+  protected function redirectListPage($campaign){
+    $user = $this->getUser();
+
+    $account = $this->get('success.repository.campaignAccount')->findAccountBy( array('user' => $user->getId()) );
+
+    $maxPerDay = $campaign->getPricePerDay();
+
+    // Si tiene saldo para cubrir 1 semana de publicidad devolvemos true
+    return ( $account->getTotal() >= ($maxPerDay * 7) );
   }
 
 }
