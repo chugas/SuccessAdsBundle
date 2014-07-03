@@ -7,9 +7,9 @@
     <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-    <link href="/backend/css/AdminLTE.css" rel="stylesheet" type="text/css" />
-    <link href="/backend/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <link href="/backend/css/ionicons.min.css" rel="stylesheet" type="text/css" />
+    {% stylesheets '@SuccessAdsBundle/Resources/public/css/*' filter='cssrewrite' %}
+      <link rel="stylesheet" href="{{ asset_url }}" />
+    {% endstylesheets %}
     {%- block stylesheets -%}{%- endblock -%}
   </head>
 
@@ -31,7 +31,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li class="user-header bg-light-blue">
-                  <img src="/backend/img/avatar5.png" class="img-circle" alt="{{ app.user }}" />
+                  <img src="/bundles/successads/img/avatar5.png" class="img-circle" alt="{{ app.user }}" />
                   <p>
                     {{ app.user }}
                     <small>Miembro desde 2014</small>
@@ -113,7 +113,9 @@
 
     <script src="//code.jquery.com/jquery.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script src="/backend/js/AdminLTE/init.js"></script>
+    {% javascripts '@SuccessAdsBundle/Resources/public/js/AdminLTE/init.js' %}
+      <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
     {%- block javascripts -%}{%- endblock -%}
   </body>
 </html>
