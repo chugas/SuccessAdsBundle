@@ -1,0 +1,50 @@
+{% extends 'SuccessAdsBundle:Frontend:layout.html.twig' %}
+
+{% block header %}Transaccion Completa{% endblock %}
+{% block section_filters %}{% endblock %}
+
+{% block body %}
+{% spaceless %}
+    
+{% for name, flashes in app.session.flashbag.all if name in ['warning', 'success', 'error'] %}
+
+  {% for flash in flashes %}
+    <div class="alert alert-{{ name }} alert-dismissable">
+      <button aria-hidden="true" data-dismiss="alert" class="close" type="button">&times;</button>
+      <strong>{{ ('order.flash.'~name) | trans({}, 'SuccessPaymentsBundle') }}</strong> {{ flash | trans({}, 'SuccessPaymentsBundle') }}
+    </div>
+  {% endfor %}
+{% endfor %}
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="box box-info">
+      <div class="box-header">
+        <h3 class="box-title">Detalles del Pago</h3>
+      </div><!-- /.box-header -->
+      <div class="box-body">
+        <dl class="dl-horizontal" style="margin-top: 0px;">
+          <dt>Numero de orden</dt>
+          <dd>{{ order.number }}</dd>
+          <dt>Monto</dt>
+          <dd>{{ order.amount ~ ' ' ~ order.currency }}</dd>
+          <dt>Tipo de Pago</dt>
+          <dd>{{ order.payment.getMethod() }}</dd>
+          <dt>Estado</dt>
+          <dd>{{ order.state }}</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% set gateway = order.payment.getMethod().getGateway() %}
+
+{% if gateway == 'redpagos' or gateway == 'abitab' or gateway == 'transferencia' %}
+{{ payment_details(order.payment.getMethod().getGateway()) }}
+{% endif %}
+
+<a href="{{ path('ads_index') }}" class="btn btn-default">CONTINUAR</a>
+
+{% endspaceless %}
+{% endblock %}

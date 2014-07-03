@@ -1,0 +1,66 @@
+{% extends 'SuccessAdsBundle:Frontend:layout.html.twig' %}
+
+{% block header %}Realizar Pago{% endblock %}
+  
+{% block body %}
+{% spaceless %}
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="box box-info">
+      <div class="box-header">
+        <h3 class="box-title">Datos de la cuenta</h3>
+      </div><!-- /.box-header -->
+      <div class="box-body">
+        <dl class="dl-horizontal" style="margin-top: 0px;">
+          <dt>Numero de cuenta</dt>
+          <dd>{{ account.code }}</dd>
+          <dt>Moneda</dt>
+          <dd>{{ account.currency }}</dd>
+          <dt>Saldo</dt>
+          <dd>{{ account.total }}</dd>
+          <dt>Fecha de creacion</dt>
+          <dd>{{ account.createdDate | date('d-m-Y H:i:s') }}</dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-body table-responsive no-padding">
+        <div class="box-header">
+          <h3 class="box-title">Formas de Pago</h3>
+          <div class="box-tools"></div>
+        </div>
+        <form method="POST" action="{{ path('campaignPayment_payment') }}">
+          <div class="box-body">
+            {{ form_errors(form) }}
+            {{ form_widget(form._token) }}
+
+            <div class="{% if form.method.vars.errors|length > 0 %}success-field-error{% endif %}">
+              {{ form_errors(form.method) }}
+              {{ form_row(form.method) }}
+            </div>
+            <div class="{% if form.amount.vars.errors|length > 0 %}success-field-error{% endif %}">
+              {{ form_errors(form.amount) }}
+              {{ form_row(form.amount) }}
+            </div>
+          </div>
+          <div class="box-footer">
+            <a href="{{ path('ads_index') }}" class="btn btn-default">Cancelar</a>
+            <button class="btn btn-primary" type="submit">Pagar!</button>
+          </div>  
+        </form>
+      </div>
+        
+      <div class="box-footer clearfix"></div>
+    </div>
+        
+  </div>
+</div>
+
+{% endspaceless %}
+{% endblock %}

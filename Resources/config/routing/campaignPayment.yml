@@ -1,0 +1,19 @@
+campaignPayment_index:
+  pattern: /ads/payment
+  defaults: { _controller: SuccessPaymentsBundle:CampaignPayment:pay }
+
+#campaignPayment_create_success:
+#  pattern: /ads/payment/create/success/
+#  defaults: { _controller: SuccessAdsBundle:CampaignPayment:success }
+
+campaignPayment_payment:
+    pattern: /payment/call
+    defaults: { _controller: SuccessPaymentsBundle:CampaignPayment:pay }
+    
+campaignPayment_payment_done:
+    pattern: /payment/done
+    defaults: { _controller: SuccessPaymentsBundle:CampaignPayment:captureDone }
+
+campaignPayment_payment_finalize:
+    pattern: /payment/finalize/{id}
+    defaults: { _controller: SuccessPaymentsBundle:CampaignPayment:finalize }
