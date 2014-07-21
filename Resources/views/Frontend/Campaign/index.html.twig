@@ -3,6 +3,11 @@
 {% block stylesheets %}
   {{ parent() }}
   <link href="/bundles/successads/js/datepicker/css/datepicker.css" rel="stylesheet" type="text/css" />
+  <style type="text/css">
+    .edit {
+      visibility: hidden;
+    }
+  </style>
 {% endblock %}
   
 {% block filters %}
@@ -66,6 +71,7 @@
               <td>Gasto</td>
               <td>Fecha de inicio</td>
               <td>Fecha de fin</td>
+              <td></td>              
             </tr>
           </thead>
           <tbody>
@@ -83,6 +89,7 @@
               <td>$U {{ campaign.views * pricePerView }}</td>
               <td>{{ campaign.unlockedDate | date('d-m-Y H:i') }}</td>
               <td>{{ campaign.unlockedUntilDate | date('d-m-Y H:i') }}</td>
+              <td><a href="{{ path('ads_edit', { 'id': campaign.id }) }}" class="edit glyphicon glyphicon-pencil"></a></td>
             </tr>
             {% endfor %}
           </tbody>
@@ -116,12 +123,18 @@
     $(function() {
 
       $('.nav-datepicker').datepicker({
-          language: "{{ app.request.locale }}",
-          autoclose: true,
-          format: 'dd/mm/yyyy'
+        language: "{{ app.request.locale }}",
+        autoclose: true,
+        format: 'dd/mm/yyyy'
       });
 
     });
+    
+    $("table td").hover(function() {
+      $(this).children(".edit").attr('style', 'visibility: visible');
+    }, function() {
+      $(this).children(".edit").attr('style', 'visibility: hidden');
+    });    
   </script>
 {% endblock %}
   

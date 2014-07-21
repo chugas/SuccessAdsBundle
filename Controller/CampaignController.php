@@ -77,9 +77,41 @@ class CampaignController extends Controller {
             ));
   }
   
-  public function editAction($id) {
-    $respuesta = $this->render('SuccessAdsBundle:Frontend/Campaign:edit.html.twig', array());
-    return $respuesta;
+  public function editAction($id) {    
+    $request = $this->getRequest();
+    
+    $type = $this->get('success.form.type.campaign');
+    $form = $this->getForm($type);
+    $resource = $this->get('success.repository.campaign')->find($id);
+    $form->setData($resource);
+    
+    if ($request->isMethod('POST')) {
+
+      if ($form->bind($request)->isValid()) {        
+        $this->update($resource);
+        $this->setFlash('success', 'update_campaign');
+
+        if($this->redirectPaymentPage($resource)){
+          // Pago
+          return $this->redirect($this->generateUrl('campaignPayment_index'));
+        } elseif ($this->redirectListPage($resource)) {
+          // Listado
+          return $this->redirect($this->generateUrl('ads_index'));
+        } else {
+          // Listado + Notificacion
+          return $this->redirect($this->generateUrl('campaignPayment_index'));          
+        }
+      }
+
+    }
+    
+    $respuesta = $this->render('SuccessAdsBundle:Frontend/Campaign:edit.html.twig', 
+        array(
+          'form'      => $form->createView(),
+          'campaign'  => $resource
+        ));
+
+    return $respuesta;    
   }
   
   public function successAction(){

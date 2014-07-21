@@ -1,13 +1,131 @@
 {% extends 'SuccessAdsBundle:Frontend:layout.html.twig' %}
 
+{% block stylesheets %}
+  {{ parent() }}
+  <!--<link href="/bundles/successads/css/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />-->
+  <link href="/bundles/successads/js/datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css" />
+  <style type="text/css">
+      .datepick-input {
+        background-color: #ffffff !important;
+      }
+      .datepick-input:hover {
+        cursor: pointer;
+      }
+  </style>
+{% endblock %}
+
+{% set active = 'home' %}
+
+{% block title %}{{ 'Campañas'|trans }}{% endblock %}
+
+{% block header %}Campañas{% endblock %}
+{% block breadcrumb %}
+<li><a href="{{ path('ads_index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+<li><a href="{{ path('ads_index')}}"><i class="fa fa-th"></i> Campañas</a></li>
+<li class="active">Editar Campaña</li>
+{% endblock %}
+
 {% block body %}
 {% spaceless %}
 
-<pre>
-------------------------
-Edicion de una campana
-------------------------
-</pre>
+<div class="row">
+  <div class="col-md-6">
+    <div class="box box-primary">
+      <div class="box-header">
+        <h3 class="box-title">Editar Campaña</h3>
+      </div>
+
+      <div class="adv">
+        <a href="{{ campaign.banner.link }}" target="_blank">
+          <img alt="{{ campaign.name }}" src="{{ campaign.getBanner().getWebPath() | apply_filter('ads_simple') }}" />
+        </a>
+      </div>        
+        
+      <form action="{{ path('ads_edit', {'id' : campaign.id }) }}" method="POST" {{ form_enctype(form) }} novalidate>
+        <div class="box-body">
+          {{ form_errors(form) }}
+          {{ form_widget(form._token) }}
+          <div style="display: none">
+            {{ form_widget(form.unlockedDate) }}            
+            {{ form_widget(form.unlockedUntilDate) }}
+          </div>
+          <div class="{% if form.name.vars.errors|length > 0 %}success-field-error{% endif %}">
+            {{ form_errors(form.name) }}
+            {{ form_row(form.name) }}
+          </div>
+          <div class="{% if form.pricePerDay.vars.errors|length > 0 %}success-field-error{% endif %}">
+            {{ form_errors(form.pricePerDay) }}
+            {{ form_row(form.pricePerDay) }}
+          </div>
+
+          <div class="{% if form.unlockedUntilDate.vars.errors|length > 0 %}success-field-error{% endif %}">
+              {{ form_errors(form.unlockedUntilDate) }}
+              <label class="control-label">Rango de Fechas</label>
+              <div class="input-daterange input-group" id="datepicker">
+                <input type="text" class="input-sm form-control" name="start" value="{{ campaign.unlockedDate.format('d/m/Y H:i') }}" disabled />
+                <span class="input-group-addon">hasta</span>
+                <input id='datetimepicker1' type="text" class="input-sm form-control datepick-input" name="end" readonly />
+              </div>
+          </div>
+            
+          <div class="{% if form.banner.link.vars.errors|length > 0 %}success-field-error{% endif %}">
+            {{ form_errors(form.banner.link) }}
+            {{ form_row(form.banner.link) }}
+          </div>
+          <div class="{% if form.banner.file.vars.errors|length > 0 %}success-field-error{% endif %}">
+            {{ form_errors(form.banner.file) }}
+            {{ form_row(form.banner.file) }}
+          </div>
+          <div class="{% if form.sections.vars.errors|length > 0 %}success-field-error{% endif %}">
+            {{ form_errors(form.sections) }}
+            {{ form_row(form.sections) }}
+          </div>
+          <div>
+            <p style="font-size: 12px; color: #999">
+             Al hacer clic en "Realizar pedido", aceptas la Declaración de derechos y responsabilidades de Agrotemario, incluida tu obligación 
+             de cumplir las Normas de publicidad de Agrotemario. No usamos los datos personales y confidenciales para la segmentación de la publicidad. 
+             Los temas que elijas para segmentar tu anuncio no reflejan las creencias personales, las características o los valores de los usuarios. 
+             El incumplimiento de los Términos y condiciones y las Normas de publicidad puede provocar consecuencias, incluida la cancelación de tus anuncios 
+             y la eliminación de tu cuenta.
+           </p>
+          </div>
+        </div>
+
+        <div class="box-footer">
+          <a href="{{ path('ads_index') }}" class="btn btn-default">Cancelar</a>
+          <button class="btn btn-primary" type="submit">Guardar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 {% endspaceless %}
+{% endblock %}
+
+{% block javascripts %}
+  {{ parent() }}
+  <script src="/bundles/successads/js/moment.min.js" type="text/javascript"></script>  
+  <script src="/bundles/successads/js/datetimepicker/src/js/bootstrap-datetimepicker.js" type="text/javascript"></script>
+  <script src="/bundles/successads/js/datetimepicker/src/js/locales/bootstrap-datetimepicker.es.js" charset="UTF-8"></script>
+  <script type="text/javascript">
+    $(function () {
+        var minDate = moment('2014-07-14 12:10');
+        var minEndDate = moment('{{ campaign.unlockedUntilDate.format('Y-m-d H:i') }}');        
+        $('#datetimepicker1').datetimepicker({
+          language: 'es',
+          minDate: minEndDate,
+          defaultDate: minEndDate,
+          minuteStepping: 15
+        });
+        $('#datetimepicker1').on("dp.change",function (e) {
+          var end = e.date;
+          $('#success_campaign_unlockedUntilDate_date_year option[value="'+end.format("YYYY")+'"]').prop('selected', true);
+          $('#success_campaign_unlockedUntilDate_date_month option[value="'+end.format("M")+'"]').prop('selected', true);
+          $('#success_campaign_unlockedUntilDate_date_day option[value="'+end.format("D")+'"]').prop('selected', true);
+          $('#success_campaign_unlockedUntilDate_time_hour option[value="'+end.format("H")+'"]').prop('selected', true);
+          $('#success_campaign_unlockedUntilDate_time_minute option[value="'+end.format("m")+'"]').prop('selected', true);
+        });
+    });
+  </script>
 {% endblock %}
